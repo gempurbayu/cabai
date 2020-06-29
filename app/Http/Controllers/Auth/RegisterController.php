@@ -7,7 +7,9 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class RegisterController extends Controller
 {
@@ -70,21 +72,23 @@ class RegisterController extends Controller
     {
 
 
-        $user = User::create([
+        $request = app('request');
+        if($request->hasfile('ktp')){
+            $ktp = $request->file('ktp');
+            $filename = time() . '.' . $ktp->getClientOriginalExtension();
+            Image::make($ktp)->save( public_path('/ktp/' . $filename) );
+        };
+    
+
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'telepon' => $data['telepon'],
             'kecamatan' => $data['kecamatan'],
             'alamat' => $data['alamat'],
             'password' => Hash::make($data['password']),
+            'ktp' => $filename,
         ]);
 
-        if(request()->hasFile('ktp')) {
-            $ktp = request()->file('ktp')->getClientOriginalName();
-            request()->file('ktp')->storeAs('ktp', $user->id . '/' . $ktp,'');
-            $user->update(['ktp' => $ktp]);
-        }
-
-        return $user;
     }
 }

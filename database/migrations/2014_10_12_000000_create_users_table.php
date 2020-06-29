@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('kecamatan');
             $table->string('ktp')->nullable();
             $table->string('password');
-            $table->integer('role')->default(1);
-            $table->integer('status_id')->nullable();
+            $table->integer('role')->default(3);
+            $table->integer('status_id')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -6,11 +6,12 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
+
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$users->where('role', 3)->count('id')}}</h3>
 
-                <p>New Orders</p>
+                <p>Pembeli Terdaftar</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -104,7 +105,7 @@
                         {{$user->alamat}}
                       </td>
                       <td>
-                        {{$user->ktp}}
+                        <img src="{{asset('ktp/'.$user->ktp)}}" class="img-fluid" alt="Colorlib Template" width="100px" height="100px">
                       </td>
                       <td>
                         @if ($user->status_id == 1)
