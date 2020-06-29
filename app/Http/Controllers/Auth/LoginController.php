@@ -42,7 +42,7 @@ class LoginController extends Controller
                 break;
 
             case 3:
-                $this->redirectTo = '/user';
+                $this->redirectTo = '/komoditas';
                 return $this->redirectTo;
                 break;
 
