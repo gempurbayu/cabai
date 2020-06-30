@@ -13,15 +13,18 @@ class CreateKomoditasTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('komoditas');
         Schema::create('komoditas', function (Blueprint $table) {
             $table->increments('id_komoditas');
             $table->string('nama_komoditas');
             $table->string('jenis');
-            $table->string('harga');
-            $table->string('stok');
+            $table->integer('harga');
+            $table->integer('stok');
             $table->string('img_komoditas')->nullable();
             $table->timestamps();
         });
+
+
     }
 
     /**

@@ -85,12 +85,14 @@
                       <th>Alamat</th>
                       <th>KTP</th>
                       <th>Status</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php $no = 1; ?>
                     @foreach($users as $user)
                     <tr>
-                      <td>1.</td>
+                      <td>{{$no++}}</td>
                       <td>{{$user->name}}</td>
                       <td>
                         {{$user->email}}
@@ -110,7 +112,21 @@
                       <td>
                         @if ($user->status_id == 1)
                            <span class="badge bg-success">aktif</span>
+                        @elseif ($user->status_id == 2)
+                          <span class="badge bg-danger">banned</span>
+
+                        @else
+                          <span class="badge bg-danger">belum aktif</span>
+
                         @endif
+                      </td>
+                      <td>
+                        <form action="{{ url('/admin/users/delete', $user->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                        
+                      </form>
                       </td>
                     </tr>
                     @endforeach
@@ -158,4 +174,5 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
+
     @endsection

@@ -1,12 +1,14 @@
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Cabai Online</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="{{ asset ('front/css/open-iconic-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('front/css/animate.css') }}">
@@ -51,7 +53,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.html">Vegefoods</a>
+          <a class="navbar-brand" href="index.html">Cabai Online</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
@@ -63,16 +65,26 @@
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
                 <a class="dropdown-item" href="{{ url('/komoditas') }}">Shop</a>
-                <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
               </div>
             </li>
               <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
               <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
               <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-              <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+              <li class="nav-item cta cta-colored">
+                <?php
+                $pesanan_utama = \App\Pesenan::where('user_id',Auth::user()->id)->where('status',0)->first();
+                if(!empty($pesanan_utama))
+                {
+                $notif = \App\PesananDetail::where('pesanan_id',$pesanan_utama->id)->count();
+                }
+                ?>
+                <a href="{{url('checkout')}}" class="nav-link"><span class="icon-shopping_cart"></span class="">
+                  @if(!empty($notif))
+                  <p class="badge badge-danger">{{$notif}}</p>
+                  @else
+                  <p class="badge badge-danger">0</p>
+                  @endif
+                </a></li>
               <li class="nav-item active dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hai, {{ Auth::user()->name }}</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -173,7 +185,7 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
   <script src="{{ asset ('front/js/jquery.min.js') }}"></script>
   <script src="{{ asset ('front/js/jquery-migrate-3.0.1.min.js') }}"></script>
   <script src="{{ asset ('front/js/popper.min.js') }}"></script>

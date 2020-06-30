@@ -24,7 +24,7 @@ class AdminController extends Controller
     public function komoditas()
     {
 
-        return view('admin.komoditas');
+        
     }
 
 
@@ -91,6 +91,9 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //delete pembeli
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/admin')->with('success', 'Contact deleted!');
     }
 }

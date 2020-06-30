@@ -96,7 +96,9 @@ class KomoditasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $komoditas = DB::table("komoditas")->where('id_komoditas', $id)->first();
+  
+        return view('admin.komoditasedit')->with('komoditas', $komoditas);
     }
 
     /**
@@ -108,7 +110,15 @@ class KomoditasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('komoditas')->where('id_komoditas', $id)->update([
+            'nama_komoditas' => $request->nama_komoditas,
+            'jenis' => $request->jenis,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+
+        return redirect('/admin/komoditas');
+
     }
 
     /**
@@ -119,6 +129,8 @@ class KomoditasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $komoditas = DB::table('komoditas')->where('id_komoditas', $id)->get();
+        $komoditas->delete();
+        return redirect('/admin/komoditas');
     }
 }

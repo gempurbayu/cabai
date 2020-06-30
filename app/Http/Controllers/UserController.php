@@ -26,15 +26,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-  
-        Product::create($request->all());
-   
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+        
     }
    
     /**
@@ -45,7 +37,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('products.show',compact('product'));
+       
     }
    
     /**
@@ -73,7 +65,7 @@ class UserController extends Controller
             'detail' => 'required',
         ]);
   
-        $product->update($request->all());
+        $user->update($request->all());
   
         return redirect()->route('products.index')
                         ->with('success','Product updated successfully');
@@ -85,11 +77,19 @@ class UserController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $product->delete();
+        $users = User::find($id);
+        $users->delete();
+        return redirect('/admin');
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $users = User::find($request->id);
+        $users->status = $request->status;
+        $users->save();
   
-        return redirect()->route('products.index')
-                        ->with('success','Product deleted successfully');
+        return response()->json(['success'=>'Status change successfully.']);
     }
 }

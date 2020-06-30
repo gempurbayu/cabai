@@ -33,6 +33,8 @@
 		              
 		            </div>
 						</div>
+						<form method="post" action="{{url('pesan')}}/{{$data->id_komoditas}}">
+							@csrf
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">
@@ -40,7 +42,8 @@
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
 	            		</span>
-	             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+	            	
+	             	<input type="text" id="jumlah_pesan" name="jumlah_pesan" class="form-control input-number" value="1" min="1" max="100">
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
@@ -52,7 +55,9 @@
 	          		<p style="color: #000;">{{$data->stok}} kg tersedia</p>
 	          	</div>
           	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5">Tambahkan Ke Keranjang</a></p>
+          	
+          		<button type="submit" class="btn btn-success btn-lg" style="color: green">Tambahkan ke Keranjang</button>
+          	</form>
     			</div>
     		</div>
     	</div>

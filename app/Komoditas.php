@@ -12,10 +12,16 @@ class Komoditas extends Model
 
     protected $guard = 'admin';
     protected $table = 'komoditas';
+    protected $primaryKey = "id_komoditas";
 
     protected $fillable = [
         'nama_komoditas', 'jenis', 'harga', 'stok','img_komoditas'
     ];
 
     protected $hidden = ['password'];
+
+    public function pesanan_detail()
+    {
+    	return $this->hasMany('App\PesananDetail','id_komoditas','komoditas_id');
+    }
 }

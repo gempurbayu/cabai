@@ -81,7 +81,8 @@
                       <th>Jenis</th>
                       <th>Harga</th>
                       <th>Jumlah Stok</th>
-                      <th>Gambar</th>>
+                      <th>Gambar</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -100,6 +101,14 @@
                       </td>
                       <td>
                       <img src="{{asset('img_komoditas/'.$komoditi->img_komoditas)}}" class="img-fluid" alt="Colorlib Template" width="100px" height="100px">
+                      </td>
+                      <td>
+                        <form action="{{ url('/admin/komoditas/delete', $komoditi->id_komoditas)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                        <a href="{{ url('/admin/komoditas/edit', $komoditi->id_komoditas)}}" class="btn btn-success"> Edit</a>
+                      </form>
                       </td>
                     </tr>
                     @endforeach
@@ -148,7 +157,6 @@
                   </div>
                 </div>
                 <!-- /.card-body -->
-
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
