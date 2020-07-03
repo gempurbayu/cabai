@@ -43,9 +43,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('pesan/{id}','KomoditasController@index');
 Route::post('pesan/{id}','PesanController@pesan');
-Route::get('checkout', 'PesanController@checkout');
+Route::get('checkout', 'PesanController@checkout')->name('checkout');
 Route::delete('checkout/{id}','PesanController@destroy');
 Route::get('checkout/konfirmasi', "PesanController@konfirmasi");
+
+Route::get('history', 'HistoryController@index')->name('history')->middleware('user');
+Route::get('history/{id}', 'HistoryController@detail');
+
+Route::get('/toko', 'TokoController@index')->name('toko')->middleware('toko');
 
 Route::apiResource('users', 'UserController');
 Route::apiResource('komoditas', 'KomoditasController');

@@ -90,5 +90,8 @@ class RegisterController extends Controller
             'ktp' => $filename,
         ]);
 
+        $this->redirectTo = '/komoditas';
+                return $this->redirectTo;
+
     }
 }

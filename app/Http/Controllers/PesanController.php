@@ -10,6 +10,7 @@ use App\PesananDetail;
 use Carbon\Carbon;
 use Alert;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Date\Date;
 
 class PesanController extends Controller
 {
@@ -27,6 +28,7 @@ class PesanController extends Controller
         $komoditas = DB::table('komoditas')->where('id_komoditas',$id)->first();
 
         $tanggal = Carbon::now();
+        $tanggal_ambil = Date::now()->add('3 day')->format('j F Y');
 
         //validasi stok
         if($request->jumlah_pesan > 10) {
@@ -42,6 +44,8 @@ class PesanController extends Controller
             $pesanan->tanggal = $tanggal;
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
+            $pesanan->kode_transaksi = mt_rand(10000000, 99999999);
+            $pesanan->tanggal_ambil = $tanggal_ambil;
             $pesanan->save();
         }
 
@@ -76,7 +80,7 @@ class PesanController extends Controller
             $pesanan->update();
 
         Alert::success('Pesanan Berhasil Masuk Keranjang', 'Success');
-       return redirect('komoditas');
+       return redirect('checkout');
 
     }
 

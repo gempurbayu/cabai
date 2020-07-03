@@ -29,7 +29,7 @@ class Admin
         }
 
         if(Auth::user()->role == 3){
-            return redirect()->route('user');
+            return redirect('/komoditas');
         }
         
     }
