@@ -1,14 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+<section class="pt60 pb60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-15 col-md-10 col-lg-7 mx-auto">
+                <!-- Login Card Starts-->
+                <div class="card card-signin mt20 mb20">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ __('Login') }}</h5>
+                        <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -50,24 +51,26 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
                             </div>
                         </div>
                     </form>
+
+                        @if (Route::has('password.request'))
+                    <div class="card-footer text-center bg-transparent">
+                        <p><a class="" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a></p>
+                    </div>
+                    @endif
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class User
+class Verifikasi
 {
     /**
      * Handle an incoming request.
@@ -16,12 +16,13 @@ class User
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::check()){
-            return redirect()->route('login');
-        }
 
         if(Auth::user()->status_id == 0 ){
-            return redirect('/verifikasi');
+            return $next($request);
+        }
+
+        if(!Auth::check()){
+            return redirect()->route('login');
         }
 
         if(Auth::user()->role == 1){
@@ -33,7 +34,7 @@ class User
         }
 
         if(Auth::user()->role == 3 ){
-            return $next($request);
+            return redirect('/komoditas');
         }
 
         return $next($request);

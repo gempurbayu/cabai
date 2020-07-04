@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>Cabai Online</title>
+    <title>CABEMERAH</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -37,14 +37,14 @@
                     <div class="row d-flex">
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-                            <span class="text">+ 1235 2355 98</span>
+                            <span class="text">+62812345678</span>
                         </div>
                         <div class="col-md pr-4 d-flex topper align-items-center">
                             <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-                            <span class="text">youremail@email.com</span>
+                            <span class="text">cs@cabemerah.com</span>
                         </div>
                         <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-                            <span class="text">3-5 Business days delivery &amp; Free Returns</span>
+                            <span class="text">BELI CABE MURAH MERIAH</span>
                         </div>
                     </div>
                 </div>
@@ -53,23 +53,26 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-          <a class="navbar-brand" href="index.html">Cabai Online</a>
+          <a class="navbar-brand" href="{{ url('/') }}">CABEMERAH</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
           </button>
 
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-              <li class="nav-item active dropdown">
+              <li class="nav-item"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="{{ url('/about') }}" class="nav-link">Tentang</a></li>
+              <li class="nav-item"><a href="{{ url('/contact') }}" class="nav-link">Hubungi Kami</a></li>
+
+              <!-- <li class="nav-item active dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
                 <a class="dropdown-item" href="{{ url('/komoditas') }}">Shop</a>
               </div>
-            </li>
-              <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-              <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-              <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+              </li> -->
+              @if (Route::has('login'))
+              <li class="nav-item active"><a href="{{ url('/komoditas') }}" class="nav-link">Pesan</a></li>
+              @auth
               <li class="nav-item cta cta-colored">
                 <?php
                 $pesanan_utama = \App\Pesenan::where('user_id',Auth::user()->id)->where('status',0)->first();
@@ -88,6 +91,7 @@
               <li class="nav-item active dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hai, {{ Auth::user()->name }}</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
                 <a class="dropdown-item" href="{{ route('history') }}">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -99,6 +103,13 @@
                                     </form>
               </div>
             </li>
+            @else
+            <li class="nav-item active"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+            @if (Route::has('register'))
+            <li class="nav-item active"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+            @endif
+            @endauth
+            @endif
 
             </ul>
           </div>
@@ -109,18 +120,18 @@
     @yield('content')
     <footer class="ftco-footer ftco-section">
       <div class="container">
-        <div class="row">
+        <!-- <div class="row">
             <div class="mouse">
                         <a href="#" class="mouse-icon">
                             <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
                         </a>
                     </div>
-        </div>
+        </div> -->
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Vegefoods</h2>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+              <h2 class="ftco-heading-2">CABEMERAH</h2>
+              <p>BELI CABE MURAH MERIAH HANYA DI CABEMERAH</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -132,10 +143,10 @@
             <div class="ftco-footer-widget mb-4 ml-md-5">
               <h2 class="ftco-heading-2">Menu</h2>
               <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">Shop</a></li>
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Journal</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                <li><a href="{{ url('/') }}" class="py-2 d-block">Home</a></li>
+                <li><a href="{{ url('/about') }}" class="py-2 d-block">Tentang</a></li>
+                <li><a href="{{ url('/contact') }}" class="py-2 d-block">Hubungi kami</a></li>
+                <li><a href="{{ url('/komoditas') }}" class="py-2 d-block">Pesan</a></li>
               </ul>
             </div>
           </div>
@@ -158,12 +169,12 @@
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-                <h2 class="ftco-heading-2">Have a Questions?</h2>
+                <h2 class="ftco-heading-2">Punya Pertanyaan?</h2>
                 <div class="block-23 mb-3">
                   <ul>
-                    <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                    <li><a href="#"><span class="icon icon-map-marker"></span><span class="text">Headquarter Bandung</span></a></li>
+                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62812345678</span></a></li>
+                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">cs@cabemerah.com</span></a></li>
                   </ul>
                 </div>
             </div>

@@ -115,6 +115,11 @@
                   </tbody>
                 </table>
               </div>
+                <div class="card-footer clearfix">
+                  <ul class="pagination pagination-sm m-0 float-right">
+                    {{ $komoditas->links() }}
+                  </ul>
+                </div>
               <!-- /.card-body -->
             <!-- /.card -->
              <div class="card card-primary">

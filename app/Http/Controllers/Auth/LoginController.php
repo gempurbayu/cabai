@@ -35,7 +35,7 @@ class LoginController extends Controller
     public function redirectTo(){
         switch (Auth::user()->role) {
             case 1:
-                $this->redirectTo = '/admin';
+                $this->redirectTo = '/admin/pembeli';
                 return $this->redirectTo;
                 break;
 
@@ -66,8 +66,5 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function credentials(Request $request){
-        $credentials = $request->only($this->username(), 'password');
-        return Arr::add($credentials, 'status_id', 1);
-    }
+
 }

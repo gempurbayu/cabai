@@ -83,6 +83,7 @@
                       <th>Tanggal Ambil</th>
                       <th>Total Harga</th>
                       <th>Status Pesanan</th>
+                      <th>aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,6 +113,13 @@
                             <p class="badge badge-primary">Belum Diambil</p>
                         @else
                             <p class="badge badge-success">Selesai</p>
+                        @endif
+                      </td>
+                      <td>
+                        @if($pesanan->status == 1)
+                          <a href="{{url('toko/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
+                        @else
+
                         @endif
                       </td>
                     </tr>

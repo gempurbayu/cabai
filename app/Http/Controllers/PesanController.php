@@ -7,6 +7,7 @@ use Auth;
 use App\komoditas;
 use App\Pesenan;
 use App\PesananDetail;
+use App\User;
 use Carbon\Carbon;
 use Alert;
 use Illuminate\Support\Facades\DB;
@@ -20,12 +21,17 @@ class PesanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware('user');
     }
     
 
     public function pesan(Request $request, $id){
         $komoditas = DB::table('komoditas')->where('id_komoditas',$id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
+        $kec = $user->kecamatan;
+
+        $toko = User::where('role', 2)->where('kecamatan', $kec)->first();
+        $tokoid = $toko->id;
 
         $tanggal = Carbon::now();
         $tanggal_ambil = Date::now()->add('3 day')->format('j F Y');
@@ -41,6 +47,7 @@ class PesanController extends Controller
         {
             $pesanan = new Pesenan;
             $pesanan->user_id = Auth::user()->id;
+            $pesanan->toko_id = $tokoid;
             $pesanan->tanggal = $tanggal;
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
@@ -109,7 +116,7 @@ class PesanController extends Controller
             $komoditas->update();
         }
 
-        return redirect('komoditas');
+        return redirect('history');
     }
 
     /**

@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -90,8 +90,7 @@ class RegisterController extends Controller
             'ktp' => $filename,
         ]);
 
-        $this->redirectTo = '/komoditas';
-                return $this->redirectTo;
+        return redirect('home');
 
     }
 }

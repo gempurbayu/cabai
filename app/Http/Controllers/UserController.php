@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Komoditas;
+use Illuminate\Support\Facades\DB;
+use Auth;
 
 class UserController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         
-    }
-
-    public function create()
-    {
-        return view('products.create');
     }
   
     /**
@@ -24,9 +26,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function about()
     {
-        
+        return view('about');
     }
    
     /**
@@ -46,29 +48,30 @@ class UserController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
-    {
-        return view('products.edit',compact('product'));
+    public function edit(){
+
+
+        $user = User::where('id', Auth::user()->id)->first();
+        return view('users.profile', compact('user'));
+
     }
-  
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
+
+    public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+        DB::table('users')->where('id', Auth::user()->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'telepon' => $request->telepon,
+            'password' => $request->password,
         ]);
-  
-        $user->update($request->all());
-  
-        return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+
+        return redirect('/profile');
+
+    }
+
+    public function profile()
+    {
+        $profile =  User::where('id', Auth::user()->id)->first();
     }
   
     /**

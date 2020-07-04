@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Komoditas;
 
 class AdminController extends Controller
 {
@@ -12,30 +13,45 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexpembeli()
     {
 
-        $users = User::latest()->where('role', 3)->paginate(5);
+        $users = User::latest()->where('role', 3)->paginate(2);
   
         return view('admin.pembeli',compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    public function komoditas()
+
+    public function indexkomoditi()
     {
-
-        
+        $komoditas = Komoditas::latest()->paginate(3);
+  
+        return view('admin.komoditas',compact('komoditas'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+
+    public function aktivasipembeli($id)
     {
-        //
+        $pembeli = User::where('id', $id)->first();
+        $pembeli->status_id = 1;
+        $pembeli->update();
+
+        return redirect('admin');
+    }
+
+    
+
+    public function createkomoditi()
+    {
+        return view('admin.komoditas');
     }
 
     /**
@@ -44,31 +60,36 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storekomoditi(Request $request)
     {
-        //
+        $komoditas =  new Komoditas();
+
+        $komoditas->nama_komoditas = $request->input('nama_komoditas');
+        $komoditas->jenis = $request->input('jenis');
+        $komoditas->harga = $request->input('harga');
+        $komoditas->stok = $request->input('stok');
+
+        if($request->hasfile('img_komoditas')) {
+            $file = $request->file('img_komoditas');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('img_komoditas/', $filename);
+            $komoditas->img_komoditas = $filename;
+        } else {
+            return $request;
+            $komoditas->image = '';
+        }
+
+        $komoditas->save();
+
+        return view('admin.komoditas', compact('komoditas'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function editkomoditi($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $komoditas = DB::table("komoditas")->where('id_komoditas', $id)->first();
+  
+        return view('admin.komoditasedit')->with('komoditas', $komoditas);
     }
 
     /**
@@ -78,10 +99,38 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatekomoditi(Request $request, $id)
     {
-        //
+        DB::table('komoditas')->where('id_komoditas', $id)->update([
+            'nama_komoditas' => $request->nama_komoditas,
+            'jenis' => $request->jenis,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+
+        return redirect('/admin/komoditas');
+
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroykomoditi($id)
+    {
+        $komoditas = DB::table('komoditas')->where('id_komoditas', $id)->get();
+        $komoditas->delete();
+        return redirect('/admin/komoditas');
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     /**
      * Remove the specified resource from storage.

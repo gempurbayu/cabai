@@ -15,4 +15,9 @@ class Pesenan extends Model
     	return $this->hasMany('App\PesananDetail','pesanan_id','id');
     }
 
+    public function toko()
+    {
+    	return $this->belongsTo('App\User','toko_id', 'id');
+    }
+
 }

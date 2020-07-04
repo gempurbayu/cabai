@@ -24,9 +24,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$users->where('role', 3)->where('status_id', 0)->count('id')}}</h3>
 
-                <p>Bounce Rate</p>
+                <p>Belum Terverifikasi</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -39,9 +39,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$users->where('role', 3)->where('status_id', 1)->count('id')}}</h3>
 
-                <p>User Registrations</p>
+                <p>Sudah Terverifikasi</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -124,7 +124,13 @@
                         <form action="{{ url('/admin/users/delete', $user->id)}}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Delete</button>
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+
+                        @if($user->status_id == 0)
+                          <a href="{{url('admin/user/aktivasi/'.$user->id)}}" class="btn btn-success btn-sm">Aktifkan</a>
+                        @else
+
+                        @endif
                         
                       </form>
                       </td>
@@ -134,13 +140,10 @@
                 </table>
               </div>
               <!-- /.card-body -->
+
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                  {{ $users->links() }}
                 </ul>
               </div>
             </div>

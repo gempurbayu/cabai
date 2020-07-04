@@ -21,7 +21,7 @@ class Toko
         }
 
         if(Auth::user()->role == 1){
-            return redirect()->route('admin');
+            return redirect('admin/pembeli');
         }
 
         if(Auth::user()->role == 2){
@@ -29,7 +29,7 @@ class Toko
         }
 
         if(Auth::user()->role == 3){
-            return redirect()->route('user');
+            return redirect('/komoditas');
         }
         
     }

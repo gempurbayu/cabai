@@ -1,14 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+<section class="pt60 pb60">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-16 col-md-11 col-lg-7 mx-auto">
+                <!-- Login Card Starts-->
+                <div class="card card-signin mt20 mb20">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ __('Register') }}</h5>
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -123,10 +124,12 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 @endsection

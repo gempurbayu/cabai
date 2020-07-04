@@ -20,17 +20,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/users/edit/{id}', 'UserController@edit');
+Route::get('/profile', 'UserController@edit')->name('profile')->middleware('user');
+Route::post('/profile', 'UserController@update')->name('updateprofile')->middleware('user');
+
 Route::delete('/admin/users/delete/{id}','UserController@destroy');
 
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
+Route::get('/admin/pembeli', 'AdminController@indexpembeli')->name('adminpembeli')->middleware('admin');
 
-Route::get('/admin/komoditas', 'KomoditasController@create')->name('adminkomoditas')->middleware('admin');
-Route::get('/admin/komoditas', 'KomoditasController@indexadm')->name('tabelkomoditas')->middleware('admin');
-Route::get('/admin/komoditas/edit/{id}', 'KomoditasController@edit')->name('editkomoditas')->middleware('admin');
-Route::post('/admin/komoditas', 'KomoditasController@store')->name('insertkomoditas')->middleware('admin');
-Route::post('/admin/komoditas/edit/{id}', 'KomoditasController@update')->middleware('admin');
-Route::delete('/admin/komoditas/delete/{id}','KomoditasController@destroy');
+Route::get('/admin/user/aktivasi/{id}', 'AdminController@aktivasipembeli')->name('aktivasi')->middleware('admin');
+
+Route::get('/admin/komoditas', 'AdminController@createkomoditi')->name('adminkomoditas')->middleware('admin');
+Route::get('/admin/komoditas', 'AdminController@indexkomoditi')->name('tabelkomoditas')->middleware('admin');
+Route::get('/admin/komoditas/edit/{id}', 'AdminController@editkomoditi')->name('editkomoditas')->middleware('admin');
+Route::post('/admin/komoditas', 'AdminController@storekomoditi')->name('insertkomoditas')->middleware('admin');
+Route::post('/admin/komoditas/edit/{id}', 'AdminController@updatekomoditi')->middleware('admin');
+Route::delete('/admin/komoditas/delete/{id}','AdminController@destroykomoditi');
 
 Route::get('changeStatus', 'UserController@changeStatus');
 
@@ -39,7 +43,9 @@ Route::get('/komoditas', 'KomoditasController@index')->name('komoditas')->middle
 
 Route::get('/komoditas/show/{id}', 'KomoditasController@show')->middleware('user');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/verifikasi', 'VerifikasiController@index')->name('verifikasi')->middleware('verifikasi');
+Route::get('/about', 'HomeController@about')->name('about');
+Route::get('/contact', 'HomeController@contact')->name('contact');
 
 Route::get('pesan/{id}','KomoditasController@index');
 Route::post('pesan/{id}','PesanController@pesan');
@@ -51,7 +57,9 @@ Route::get('history', 'HistoryController@index')->name('history')->middleware('u
 Route::get('history/{id}', 'HistoryController@detail');
 
 Route::get('/toko', 'TokoController@index')->name('toko')->middleware('toko');
+Route::get('/toko/{id}', 'TokoController@ambil')->name('ambil')->middleware('toko');
 
 Route::apiResource('users', 'UserController');
 Route::apiResource('komoditas', 'KomoditasController');
+Route::apiResource('toko', 'TokoController');
 
