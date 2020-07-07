@@ -1,4 +1,4 @@
-@extends('layouts.toko')
+@extends('layouts.panel')
 @section('content')
 <section class="content">
       <div class="container-fluid">
@@ -6,11 +6,12 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
+
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{$pesanans->count('id')}}</h3>
+                <h3>{{$pesanans->where('status', 0)->count('id')}}</h3>
 
-                <p>Banyak Pesanan</p>
+                <p>Pesanan Belum Checkout</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -23,9 +24,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$pesanans->where('status', 1)->count('id')}}</h3>
 
-                <p>Bounce Rate</p>
+                <p>Pesanan Menunggu Diambil</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -38,9 +39,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$pesanans->where('status', 2)->count('id')}}</h3>
 
-                <p>User Registrations</p>
+                <p>Pesanan Selesai</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -53,9 +54,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{$pesanans->where('status', 3)->count('id')}}</h3>
 
-                <p>Unique Visitors</p>
+                <p>Pesanan Dibatalkan</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -73,6 +74,24 @@
             <!-- Custom tabs (Charts with tabs)-->
             <!-- /.card -->
              <div class="card-body">
+              <div class="row">
+                <div class="form-group">
+                <form method="post" action="{{route('filterpesanan')}}" enctype="">
+                  @csrf
+                  <label for="sel1">Pilih Status Pemesanan :</label>
+                  <select class="form-control" id="filter" name="status">
+                    <option value="0">Belum Checkout</option>
+                    <option value="1">Menunggu Pengambilan</option>
+                    <option value="2">Selesai</option>
+                    <option value="3">Batal</option>
+                  </select>
+                  <p> </p>
+                    <input type="submit" name="filter" value="filter" class="btn btn-primary">
+                </form>
+                </div>
+              </div>
+
+
                 <table class="table table-bordered">
                   <thead>                  
                     <tr>
@@ -116,12 +135,7 @@
                         @endif
                       </td>
                       <td>
-                        @if($pesanan->status == 1)
-                          <a href="{{url('toko/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
-                          <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
-                        @else
-                        <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
-                        @endif
+                        <a href="{{url('admin/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
                       </td>
                     </tr>
                     @endforeach
@@ -129,7 +143,13 @@
                 </table>
               </div>
               <!-- /.card-body -->
-            
+
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  {{ $pesanans->links() }}
+                </ul>
+              </div>
+            </div>
             <!-- /.card -->
             <!-- DIRECT CHAT -->
             
@@ -160,4 +180,5 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
+
     @endsection

@@ -105,6 +105,19 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="avatar" class="col-md-4 col-form-label text-md-right">{{ __('Foto Profile') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="avatar" type="file" name="avatar" class="form-control{{ $errors->has('avatar') ? ' is-invalid' : '' }}" >
+                                @if ($errors->has('avatar'))
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('avatar') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('KTP') }}</label>
 
                             <div class="col-md-6">

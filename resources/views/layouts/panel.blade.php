@@ -123,6 +123,24 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/admin/pesanan" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Pesanan
+               <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/toko" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Toko
+               <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
          
          
           

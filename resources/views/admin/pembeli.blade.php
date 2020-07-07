@@ -129,7 +129,7 @@
                         @if($user->status_id == 0)
                           <a href="{{url('admin/user/aktivasi/'.$user->id)}}" class="btn btn-success btn-sm">Aktifkan</a>
                         @else
-
+                          <a href="{{url('admin/user/nonaktif/'.$user->id)}}" class="btn btn-primary btn-sm">Nonaktifkan</a>
                         @endif
                         
                       </form>

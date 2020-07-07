@@ -72,62 +72,70 @@
           <section class="col-lg-12 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <!-- /.card -->
-             <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>                  
-                    <tr>
-                      <th style="width: 10px">No</th>
-                      <th>Nama Pemesan</th>
-                      <th>Tanggal Pemesanan</th>
-                      <th>Kode Transaksi</th>
-                      <th>Tanggal Ambil</th>
-                      <th>Total Harga</th>
-                      <th>Status Pesanan</th>
-                      <th>aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                        $no = 1;
-                    ?>
-                    @foreach($pesanans as $pesanan)
-                    <tr>
-                      <td>{{$no++}}</td>
-                      <td>{{$pesanan->user->name}}</td>
-                      <td>
-                        {{$pesanan->tanggal}}
-                      </td>
-                      <td>
-                        {{$pesanan->kode_transaksi}}
-                      </td>
-                      <td>
-                        {{$pesanan->tanggal_ambil}}
-                      </td>
-                      <td>
-                        {{$pesanan->jumlah_harga}}
-                      </td>
-                      <td>
-                        @if($pesanan->status == 0)
-                            <p class="badge badge-danger">Belum Checkout</p>
-                        @elseif($pesanan->status == 1)
-                            <p class="badge badge-primary">Belum Diambil</p>
-                        @else
-                            <p class="badge badge-success">Selesai</p>
-                        @endif
-                      </td>
-                      <td>
-                        @if($pesanan->status == 1)
-                          <a href="{{url('toko/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
-                          <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
-                        @else
-                        <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
-                        @endif
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+             <div class="container">
+                @if(!empty($pesanan))
+                <p style="font-size: 20px">Kode Pemesanan : <b style="color: #82ae46">{{$pesanan->kode_transaksi}}</b></p>
+                <div class="row">
+                  <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                      <table class="table">
+                        <thead class="thead-primary">
+                          <tr class="text-center">
+                            <th>No</th>
+                            <th>Nama Komoditas</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th>Total Harga</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php $no = 1; ?>
+                          @foreach($pesanan_details as $pesanan_detail)
+                          <tr class="text-center">
+                            <td>{{$no++}}</td>
+                            <td class="product-name">
+                              {{$pesanan_detail->komoditas->nama_komoditas}}
+                            </td>
+                            
+                            <td class="jumlah">{{$pesanan_detail->jumlah}} Kg</td>
+                            
+                            <td class="harga">Rp. {{$pesanan_detail->komoditas->harga}}</td>
+                            
+                            <td class="total">Rp. {{$pesanan_detail->jumlah_harga}}</td>
+                          </tr><!-- END TR-->
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                  <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                      <h3>Total Belanja</h3>
+                      <p class="d-flex">
+                        <span>Subtotal</span>
+                        <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
+                      </p>
+                      <p class="d-flex">
+                        <span>Diskon</span>
+                        <span>Rp. 0</span>
+                      </p>
+                      <hr>
+                      <p class="d-flex total-price">
+                        <span>Total</span>
+                        <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
+                      </p>
+                      @if($pesanan->status == 2)
+
+                      @else
+                      <a href="{{url('toko/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
+
+                      @endif
+                    </div>
+                </div>
               </div>
+              @endif
+            </div>
               <!-- /.card-body -->
             
             <!-- /.card -->

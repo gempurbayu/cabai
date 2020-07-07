@@ -52,7 +52,6 @@ class PesanController extends Controller
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
             $pesanan->kode_transaksi = mt_rand(10000000, 99999999);
-            $pesanan->tanggal_ambil = $tanggal_ambil;
             $pesanan->save();
         }
 
@@ -91,13 +90,19 @@ class PesanController extends Controller
 
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
         $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
         if(!empty($pesanan))
         {
             $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+            $hari = $request->hari;
+            $tanggal_ambil = Carbon::now()->addDays($hari);
+            $pesanan->tanggal_ambil = $tanggal_ambil;
+            $pesanan->update();
+
         }   
         return view('pesan.checkout', compact('pesanan','pesanan_details'));
     }

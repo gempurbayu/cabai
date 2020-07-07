@@ -106,7 +106,7 @@
            
           </li>
           <li class="nav-item">
-            <a href="/Toko/Pesanan" class="nav-link">
+            <a href="/toko/" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Pesanan

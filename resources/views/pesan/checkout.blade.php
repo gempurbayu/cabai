@@ -86,6 +86,7 @@
     				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
     			</div>
         -->
+
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
     					<h3>Cart Totals</h3>
@@ -102,6 +103,9 @@
     						<span>Total</span>
     						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
     					</p>
+              <label>Diambil hari ke :</label>
+              <input id="hari" type="text" class="form-control" name="hari" required="" placeholder="masukkan hari ke-berapa diambil">
+              
     				</div>
     				<p><a href="{{url('checkout/konfirmasi')}}" class="btn btn-primary py-3 px-4">Proses Pemesanan</a></p>
     			</div>

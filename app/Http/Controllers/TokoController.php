@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pesenan;
+use App\PesananDetail;
 use App\User;
 use Auth;
 
@@ -35,5 +36,14 @@ class TokoController extends Controller
     	$pesanan->update();
 
     	return redirect('toko');
+    }
+
+    public function detail($id)
+    {
+    	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
+    	$pesanan = Pesenan::where('id', $id)->first();
+    	$pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+    	return view('toko.detail', compact('pesanans','pesanan', 'pesanan_details'));
     }
 }

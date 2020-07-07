@@ -87,12 +87,4 @@ class UserController extends Controller
         return redirect('/admin');
     }
 
-    public function changeStatus(Request $request)
-    {
-        $users = User::find($request->id);
-        $users->status = $request->status;
-        $users->save();
-  
-        return response()->json(['success'=>'Status change successfully.']);
-    }
 }

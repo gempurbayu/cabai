@@ -48,6 +48,7 @@
             <div class="cart-total mb-6">
               <h2>Berhasil Checkout</h2>
               <p style="font-size: 20px">Silahkan untuk ke toko pada tanggal : <b style="color: #82ae46">{{$pesanan->tanggal_ambil}}</b></p>
+              <p style="font-size: 20px">Alamat Toko : <b style="color: #82ae46">{{$pesanan->toko->kecamatan}}, {{$pesanan->toko->alamat}}</b></p>
 
             </div>
     			</div>

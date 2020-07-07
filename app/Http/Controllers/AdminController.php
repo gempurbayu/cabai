@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Komoditas;
+use App\PesananDetail;
+use App\Pesenan;
 
 class AdminController extends Controller
 {
@@ -44,7 +46,16 @@ class AdminController extends Controller
         $pembeli->status_id = 1;
         $pembeli->update();
 
-        return redirect('admin');
+        return redirect('admin/pembeli');
+    }
+
+    public function nonaktifpembeli($id)
+    {
+        $pembeli = User::where('id', $id)->first();
+        $pembeli->status_id = 0;
+        $pembeli->update();
+
+        return redirect('admin/pembeli');
     }
 
     
@@ -112,6 +123,36 @@ class AdminController extends Controller
 
     }
 
+
+    public function indexpesanan()
+    {
+         $pesanans = Pesenan::Latest()->orderBy('tanggal', 'asc')->paginate(5);
+
+  
+        return view('admin.indexpesanan',compact('pesanans'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+
+    public function pesanandetail($id)
+    {
+        $pesanans = Pesenan::Latest()->orderBy('tanggal', 'asc')->paginate(5);
+        $pesanan = Pesenan::where('id', $id)->first();
+        $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+
+        return view('admin.detailpesanan', compact('pesanans','pesanan', 'pesanan_details'));
+    }
+
+    public function filterpesanan(Request $request)
+    {
+        $pesanan = Pesenan::Latest();
+
+        $status = $request->status;
+        $pesanans = Pesenan::where('status', $status)->orderBy('tanggal', 'asc')->paginate(5);
+
+        return view('admin.indexpesanan', compact('pesanan','pesanans'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -144,5 +185,12 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect('/admin')->with('success', 'Contact deleted!');
+    }
+
+
+    public function indextoko()
+    {
+        $tokos = User::where('role', 2)->paginate(5);
+        return view('admin.toko', compact('tokos'));
     }
 }

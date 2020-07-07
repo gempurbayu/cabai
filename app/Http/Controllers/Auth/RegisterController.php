@@ -78,6 +78,11 @@ class RegisterController extends Controller
             $filename = time() . '.' . $ktp->getClientOriginalExtension();
             Image::make($ktp)->save( public_path('/ktp/' . $filename) );
         };
+        if($request->hasfile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename2 = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->save( public_path('/avatar/' . $filename2) );
+        };
     
 
         return User::create([
@@ -88,9 +93,11 @@ class RegisterController extends Controller
             'alamat' => $data['alamat'],
             'password' => Hash::make($data['password']),
             'ktp' => $filename,
+            'avatar' => $filename2,
         ]);
 
-        return redirect('home');
+
+        return redirect('verifikasi');
 
     }
 }
