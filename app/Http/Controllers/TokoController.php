@@ -46,4 +46,41 @@ class TokoController extends Controller
 
     	return view('toko.detail', compact('pesanans','pesanan', 'pesanan_details'));
     }
+
+    public function cancelorder(Request $request, $id)
+    {
+    	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
+    	$pesanan = Pesenan::where('id', $id)->first();
+    	$pesanan->keterangan =  $request->keterangan;
+    	$pesanan->status = 3;
+    	$pesanan->update();
+
+    	return redirect('toko');
+    }
+
+    public function successorder(Request $request, $id)
+    {
+    	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
+    	$pesanan = Pesenan::where('id', $id)->first();
+    	$pesanan->keterangan =  $request->keterangan;
+    	$pesanan->status = 2;
+    	$pesanan->update();
+
+    	return redirect('toko');
+    }
+
+    public function cancel($id)
+    {
+    	$pesanan = Pesenan::where('id', $id)->first();
+
+    	return view('toko.cancelorder', compact('pesanan'));
+    }
+
+    public function success($id)
+    {
+    	$pesanan = Pesenan::where('id', $id)->first();
+
+    	return view('toko.successorder', compact('pesanan'));
+    }
+
 }

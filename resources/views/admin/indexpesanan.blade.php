@@ -102,6 +102,7 @@
                       <th>Tanggal Ambil</th>
                       <th>Total Harga</th>
                       <th>Status Pesanan</th>
+                      <th>Keterangan</th>
                       <th>aksi</th>
                     </tr>
                   </thead>
@@ -130,9 +131,14 @@
                             <p class="badge badge-danger">Belum Checkout</p>
                         @elseif($pesanan->status == 1)
                             <p class="badge badge-primary">Belum Diambil</p>
-                        @else
+                        @elseif($pesanan->status == 2)
                             <p class="badge badge-success">Selesai</p>
+                        @else
+                            <p class="badge badge-danger">Dibatalkan</p>
                         @endif
+                      </td>
+                      <td>
+                          {{$pesanan->keterangan}}
                       </td>
                       <td>
                         <a href="{{url('admin/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>

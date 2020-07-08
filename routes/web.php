@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/profile', 'UserController@edit')->name('profile')->middleware('user');
-Route::post('/profile', 'UserController@update')->name('updateprofile')->middleware('user');
+Route::post('/profile/update', 'UserController@update')->name('updateprofile')->middleware('user');
 
 Route::delete('/admin/users/delete/{id}','UserController@destroy');
 
@@ -47,6 +47,10 @@ Route::get('changeStatus', 'UserController@changeStatus');
 
 Route::get('/toko', 'TokoController@index')->name('toko')->middleware('toko');
 Route::get('/toko/pesanan/detail/{id}', 'TokoController@detail')->middleware('toko');
+Route::post('/toko/pesanan/cancel/{id}', 'TokoController@cancelorder')->middleware('toko');
+Route::get('/toko/pesanan/cancel/{id}', 'TokoController@cancel')->middleware('toko');
+Route::post('/toko/pesanan/success/{id}', 'TokoController@successorder')->middleware('toko');
+Route::get('/toko/pesanan/success/{id}', 'TokoController@success')->middleware('toko');
 Route::get('/komoditas', 'KomoditasController@index')->name('komoditas')->middleware('user');
 
 Route::get('/komoditas/show/{id}', 'KomoditasController@show')->middleware('user');
@@ -60,6 +64,7 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('pesan/{id}','KomoditasController@index');
 Route::post('pesan/{id}','PesanController@pesan');
 Route::get('checkout', 'PesanController@checkout')->name('checkout');
+Route::post('checkout', 'PesanController@konfirmasi')->name('tglcheckout');
 Route::delete('checkout/{id}','PesanController@destroy');
 Route::get('checkout/konfirmasi', "PesanController@konfirmasi");
 

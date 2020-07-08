@@ -18,7 +18,8 @@
       <div class="col-md-9 personal-info">
         <h3>Info Personal</h3>
         
-        <form class="form-horizontal" role="form" method="post" action="{{route('updateprofile')}}">
+        <form class="form-horizontal" role="form" method="post" action="{{route('updateprofile')}}" enctype="multipart/form-data">
+          @csrf
           <div class="form-group">
             <label class="col-lg-3 control-label">Nama Lengkap :</label>
             <div class="col-lg-8">
@@ -50,9 +51,16 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
+            <label class="col-md-3 control-label">Password :</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="" placeholder="******" required="" name="password">
+              <input class="form-control" type="password" value="" placeholder="******" required="" name="password" id="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Konfirmasi Password :</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="" placeholder="******" required="" name="password_confirmation" id="password_confirmation">
+              <span id='message'></span>
             </div>
           </div>
           <div class="form-group">
@@ -67,4 +75,12 @@
   </div>
 </div>
 <hr>
+<script >
+  $('#password, #password_confirmation').on('keyup', function () {
+  if ($('#password').val() == $('#password_confirmation').val()) {
+    $('#message').html('Sama').css('color', 'green');
+  } else 
+    $('#message').html('Tidak Sama').css('color', 'red');
+});
+</script>
 @endsection

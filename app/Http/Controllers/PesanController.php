@@ -34,7 +34,6 @@ class PesanController extends Controller
         $tokoid = $toko->id;
 
         $tanggal = Carbon::now();
-        $tanggal_ambil = Date::now()->add('3 day')->format('j F Y');
 
         //validasi stok
         if($request->jumlah_pesan > 10) {
@@ -51,6 +50,7 @@ class PesanController extends Controller
             $pesanan->tanggal = $tanggal;
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
+            $pesanan->tanggal_ambil = Carbon::now();
             $pesanan->kode_transaksi = mt_rand(10000000, 99999999);
             $pesanan->save();
         }
@@ -90,7 +90,7 @@ class PesanController extends Controller
 
     }
 
-    public function checkout(Request $request)
+    public function checkout()
     {
         $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
 
@@ -98,20 +98,29 @@ class PesanController extends Controller
         {
             $pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
 
-            $hari = $request->hari;
-            $tanggal_ambil = Carbon::now()->addDays($hari);
-            $pesanan->tanggal_ambil = $tanggal_ambil;
-            $pesanan->update();
 
         }   
         return view('pesan.checkout', compact('pesanan','pesanan_details'));
     }
 
-    public function konfirmasi()
+    public function tglcheckout()
+    {
+        $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+
+
+
+        return redirect('/history');
+    }
+
+    public function konfirmasi(Request $request)
     {
         $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan_id = $pesanan->id;
         $pesanan->status = 1;
+        $hari = date('Y-m-d'); 
+
+        $hari = $request->hari;
+        $pesanan->tanggal_ambil = $hari;
         $pesanan->update();
 
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();

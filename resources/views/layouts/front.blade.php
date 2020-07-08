@@ -121,6 +121,7 @@
         </div>
       </nav>
     <!-- END nav -->
+    @include('flash-message')
 
     @yield('content')
     <footer class="ftco-footer ftco-section">

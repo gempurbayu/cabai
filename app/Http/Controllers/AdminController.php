@@ -93,7 +93,7 @@ class AdminController extends Controller
 
         $komoditas->save();
 
-        return view('admin.komoditas', compact('komoditas'));
+        return redirect('/admin/pembeli');
     }
 
     public function editkomoditi($id)

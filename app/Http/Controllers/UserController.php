@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Komoditas;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class UserController extends Controller
@@ -58,20 +59,29 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+
+        $validator =[
+            'password' => 'min:8|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:8'
+        ];
+ 
+            $this->validate($request, $validator);
+
         DB::table('users')->where('id', Auth::user()->id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'telepon' => $request->telepon,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
 
-        return redirect('/profile');
+        return redirect('/profile')->with('success','Berhasil Mengubah Profile');
 
     }
 
     public function profile()
     {
         $profile =  User::where('id', Auth::user()->id)->first();
+
     }
   
     /**

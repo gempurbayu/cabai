@@ -104,10 +104,13 @@
     						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
     					</p>
               <label>Diambil hari ke :</label>
-              <input id="hari" type="text" class="form-control" name="hari" required="" placeholder="masukkan hari ke-berapa diambil">
+              <form action="{{route('tglcheckout')}}" method="post">
+                @csrf
+              <input id="hari" type="date" class="form-control" name="hari" required="" placeholder="masukkan hari ke-berapa diambil">
               
     				</div>
-    				<p><a href="{{url('checkout/konfirmasi')}}" class="btn btn-primary py-3 px-4">Proses Pemesanan</a></p>
+    				<p><input type="submit" class="btn btn-primary py-3 px-4" value="Proses Pemesanan"></input></p>
+          </form>
     			</div>
     		</div>
 			</div>

@@ -69,6 +69,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="kelurahan" class="col-md-4 col-form-label text-md-right">{{ __('Kelurahan') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="kelurahan" type="text" class="form-control @error('kelurahan') is-invalid @enderror" name="kelurahan" value="{{ old('kelurahan') }}" required autocomplete="kelurahan" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="alamat" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
 
                             <div class="col-md-6">

@@ -31,7 +31,7 @@
                 <div class="col-md-12 ftco-animate text-center">
                   <h1 class="mb-2">CABE MERAH</h1>
                   <h2 class="subheading mb-4">CABE MERAH</h2>
-                  <p><a href="#" class="btn btn-primary">View Details</a></p>
+                  <p><a href="/kom" class="btn btn-primary">View Details</a></p>
                 </div>
 
               </div>
@@ -46,7 +46,7 @@
                 <div class="col-sm-12 ftco-animate text-center">
                   <h1 class="mb-2">CABE MERAH</h1>
                   <h2 class="subheading mb-4">CABE MERAH</h2>
-                  <p><a href="#" class="btn btn-primary">View Details</a></p>
+                  <p><a href="/komoditas" class="btn btn-primary">View Details</a></p>
                 </div>
 
               </div>

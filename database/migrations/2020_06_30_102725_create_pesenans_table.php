@@ -22,6 +22,7 @@ class CreatePesenansTable extends Migration
             $table->integer('jumlah_harga');
             $table->date('tanggal_ambil');
             $table->integer('kode_transaksi');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
