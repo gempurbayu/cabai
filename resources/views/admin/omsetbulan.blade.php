@@ -1,24 +1,9 @@
 @extends('layouts.panel')
 @section('content')
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Chart</title>
-
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/data.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-
-
-
-
-</head>
-   
 <body>
 <div class="container">
-        <a href="/admin" class="btn btn-success btn-sm">Hari</a>
-        <a href="/admin/omsetbulan" class="btn btn-primary btn-sm">Bulan</a>
+        <a href="/admin" class="btn btn-primary btn-sm">Hari</a>
+        <a href="/admin/omsetbulan" class="btn btn-success btn-sm">Bulan</a>
         <a href="/admin/omsettahun" class="btn btn-primary btn-sm">Tahun</a>
       <div class="row">
       <canvas id="canvas" class="" width="600"></canvas>
@@ -29,8 +14,8 @@
 
 <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
 <script>
-    var tanggal = <?php echo $tanggal; ?>;
-    var data_viewer = <?php echo $omset; ?>;
+    var tanggal = <?php echo $tanggalbulan; ?>;
+    var data_viewer = <?php echo $omsetbulan; ?>;
 
 
     var barChartData = {
@@ -60,7 +45,7 @@
                 responsive: true,
                 title: {
                     display: true,
-                    text: 'Data Omset Perhari'
+                    text: 'Data Omset PerBulan'
                 }
             }
         });
@@ -69,8 +54,5 @@
     };
 </script>
 
-
-
-</html>
 
 @endsection

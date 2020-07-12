@@ -21,7 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin/', 'ChartController@index')->name('admingrafik')->middleware('admin');
+Route::get('/admin/omsetbulan', 'ChartController@omsetbulan')->name('omsetbulan')->middleware('admin');
+Route::get('/admin/omsettahun', 'ChartController@omsettahun')->name('omsetbulan')->middleware('admin');
 Route::get('/admin/bulan', 'ChartController@filter')->name('admingrafik')->middleware('admin');
+Route::get('/admin/grafikuser', 'ChartController@guser')->name('admingrafik')->middleware('admin');
+Route::get('/admin/grafikuserh', 'ChartController@guserh')->name('admingrafik')->middleware('admin');
 
 Route::get('/admin/coba', 'AdminController@coba');
 

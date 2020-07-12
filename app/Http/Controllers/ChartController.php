@@ -45,10 +45,6 @@ public function filter(Request $request){
   
     public function index(Request $request){
 
-        for($i = 1; $i < 31; $i++)
-        {
-            $label[]         = $i ;
-        }
        $omset = DB::table('omset')->select(DB::raw("jumlah as count"))
         ->get()
         ->toArray();
@@ -57,14 +53,92 @@ public function filter(Request $request){
         ->get()
         ->toArray();
 
+    $omsetbulan = DB::table('omsetbulan')->select(DB::raw("jumlah as countbulan"))
+        ->get()
+        ->toArray();
+
+        $tanggalbulan = DB::table('omsetbulan')->select(DB::raw("tanggal_ambil as tanggalbulan"))
+        ->get()
+        ->toArray();
+
     $omset = array_column($omset, 'count');
     $tanggal = array_column($tanggal, 'tanggal');
 
+    $omsetbulan = array_column($omset, 'count');
+    $tanggalbulan = array_column($tanggal, 'tanggalulan');
+
     return view('admin.grafik')
             ->with('omset',json_encode($omset,JSON_NUMERIC_CHECK))
-            ->with('tanggal',json_encode($tanggal,JSON_NUMERIC_CHECK));
+            ->with('tanggal',json_encode($tanggal,JSON_NUMERIC_CHECK))
+            ->with('omsetbulan',json_encode($omsetbulan,JSON_NUMERIC_CHECK))
+            ->with('tanggalbulan',json_encode($tanggalbulan,JSON_NUMERIC_CHECK));
 
 
+    }
+
+    public function omsetbulan(Request $request){
+
+        $omsetbulan = DB::table('omsetbulan')->select(DB::raw("jumlah as countbulan"))
+        ->get()
+        ->toArray();
+
+        $tanggalbulan = DB::table('omsetbulan')->select(DB::raw("tanggal_ambil as tanggalbulan"))
+        ->get()
+        ->toArray();
+
+
+    $omsetbulan = array_column($omsetbulan, 'countbulan');
+    $tanggalbulan = array_column($tanggalbulan, 'tanggalbulan');
+
+    return view('admin.omsetbulan')
+            ->with('omsetbulan',json_encode($omsetbulan,JSON_NUMERIC_CHECK))
+            ->with('tanggalbulan',json_encode($tanggalbulan,JSON_NUMERIC_CHECK));
+
+
+    }
+
+    public function omsettahun(Request $request){
+
+        $omsettahun = DB::table('omsettahun')->select(DB::raw("jumlah as counttahun"))
+        ->get()
+        ->toArray();
+
+        $tanggaltahun = DB::table('omsettahun')->select(DB::raw("tanggal_ambil as tanggaltahun"))
+        ->get()
+        ->toArray();
+
+
+    $omsettahun = array_column($omsettahun, 'counttahun');
+    $tanggaltahun = array_column($tanggaltahun, 'tanggaltahun');
+
+    return view('admin.omsettahun')
+            ->with('omsettahun',json_encode($omsettahun,JSON_NUMERIC_CHECK))
+            ->with('tanggaltahun',json_encode($tanggaltahun,JSON_NUMERIC_CHECK));
+
+
+    }
+
+    public function guser(request $request){
+        $days = "";
+        $userr = "";
+        for($i = 0; $i < 30; $i++) {
+            $days .= "'".date("d M", strtotime('-'. $i .' days'))."',";
+
+            $userr .=  "'".User::where('role', '=', '3')->whereDate('created_at', '=', date("Y-m-d", strtotime('-'. $i .' days')))->count()."',";
+        }
+    
+        return view('admin.grafikuser',compact('days','userr'));
+    }
+
+    public function guserh(request $request){
+        $label         = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+        for($bulan=1;$bulan < 13;$bulan++){
+        $chartuser     = collect(DB::SELECT("SELECT count(id) AS jumlah from users where month(created_at)='$bulan' and role = 3"))->first();
+        $jumlah_user[] = $chartuser->jumlah;
+        }
+
+
+    return view('admin.grafikuserh',compact('jumlah_user','label', 'chartuser'));
     }
 
 

@@ -9,6 +9,8 @@ class Inventory extends Model
 
 	protected $table = 'inventory';
 
+	
+
     public function komoditas()
     {
     	return $this->belongsTo('App\Komoditas','komoditas_id', 'id_komoditas');
