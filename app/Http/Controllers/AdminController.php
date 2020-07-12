@@ -7,6 +7,8 @@ use App\User;
 use App\Komoditas;
 use App\PesananDetail;
 use App\Pesenan;
+use App\Inventory;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -15,21 +17,39 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function coba(Request $request)
+    {
+        $totals = Pesenan::All();
+
+
+        return view('admin.coba', compact('totals'));
+    }
+
     public function indexpembeli()
     {
 
+        $widget = User::latest()->get();
         $users = User::latest()->where('role', 3)->paginate(2);
   
-        return view('admin.pembeli',compact('users'))
+        return view('admin.pembeli',compact('users','widget'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function indexgrafik()
+    {
+        
+        return view('admin.grafik');
     }
 
 
     public function indexkomoditi()
     {
         $komoditas = Komoditas::latest()->paginate(3);
+
+        $stoks = Inventory::latest()->get();
   
-        return view('admin.komoditas',compact('komoditas'))
+        return view('admin.komoditas',compact('komoditas', 'stoks'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -78,7 +98,6 @@ class AdminController extends Controller
         $komoditas->nama_komoditas = $request->input('nama_komoditas');
         $komoditas->jenis = $request->input('jenis');
         $komoditas->harga = $request->input('harga');
-        $komoditas->stok = $request->input('stok');
 
         if($request->hasfile('img_komoditas')) {
             $file = $request->file('img_komoditas');
@@ -116,7 +135,6 @@ class AdminController extends Controller
             'nama_komoditas' => $request->nama_komoditas,
             'jenis' => $request->jenis,
             'harga' => $request->harga,
-            'stok' => $request->stok,
         ]);
 
         return redirect('/admin/komoditas');

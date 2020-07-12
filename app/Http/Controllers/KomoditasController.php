@@ -43,6 +43,8 @@ class KomoditasController extends Controller
     public function show($id)
     {
         $data = DB::table('komoditas')->where('id_komoditas',$id)->first();
+        $toko = DB::table('users')->where('kecamatan', Auth::user()->kecamatan)->first();
+        $stok = DB::table('v_totalstok')->where('toko_id', $toko->id);
         return view('users.komoditasshow',compact('data'));
     }
 

@@ -128,7 +128,7 @@
                       @if($pesanan->status == 2)
 
                       @else
-                      <a href="{{url('toko/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
+                      <a href="{{url('toko/pesanan/success/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
 
                       @endif
                     </div>

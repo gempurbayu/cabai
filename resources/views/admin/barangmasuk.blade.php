@@ -15,29 +15,34 @@
             <!-- /.card -->
              <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Komoditas</h3>
+                <h3 class="card-title">Input Barang Masuk dari Supplier</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post" action="{{ url('admin/komoditas/edit', $komoditas->id_komoditas) }}" enctype="multipart/form-data">
+              <form role="form" method="post" action="{{ url('admin/barangmasuk', $komoditas->id_komoditas) }}" enctype="multipart/form-data">
                 {{csrf_field() }}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="nama">Nama Komoditas</label>
-                    <input type="text" class="form-control" id="nama" name="nama_komoditas" placeholder="masukkan nama" value="{{$komoditas->nama_komoditas}}">
+                    <input type="text" class="form-control col-sm-4" id="nama" name="nama_komoditas" 
+                   disabled="" placeholder="masukkan nama" value="{{$komoditas->nama_komoditas}}">
                   </div>
                   <div class="form-group">
-                    <label for="nama">Jenis</label>
-                    <input type="text" class="form-control" id="jenis" name="jenis" placeholder="masukkan jenis" value="{{$komoditas->jenis}}">
-                  </div>
+                        <label>Pilih Toko</label>
+                        <select class="form-control" name="toko_id">
+                          @foreach($toko as $tokos)
+                          <option value="{{$tokos->id}}">{{$tokos->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
                   <div class="form-group">
-                    <label for="nama">Harga</label>
-                    <input type="text" class="form-control" id="harga" name="harga" placeholder="masukkan harga" value="{{$komoditas->harga}}">
+                    <label for="nama">Jumlah Stok Masuk per-Kg</label>
+                    <input type="text" class="form-control col-sm-1" id="harga" name="qty_barangmasuk" value="">
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Update</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form> 
             </div>
@@ -73,4 +78,4 @@
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
-    @endsection
+  @endsection

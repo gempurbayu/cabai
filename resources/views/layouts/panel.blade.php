@@ -38,7 +38,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="/admin" class="nav-link">Home</a>
       </li>
       <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -83,7 +83,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('avatar/'. Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -96,7 +96,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item ">
-            <a href="#" class="nav-link">
+            <a href="/admin/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -107,7 +107,7 @@
           </li>
           <li class="nav-item">
             <a href="/admin/pembeli" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
                 Pembeli
                <!-- <span class="right badge badge-danger">New</span> -->
@@ -116,7 +116,7 @@
           </li>
           <li class="nav-item">
             <a href="/admin/komoditas" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-cubes"></i>
               <p>
                 Komoditas
                <!-- <span class="right badge badge-danger">New</span> -->
@@ -125,7 +125,7 @@
           </li>
           <li class="nav-item">
             <a href="/admin/pesanan" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Pesanan
                <!-- <span class="right badge badge-danger">New</span> -->
@@ -134,12 +134,35 @@
           </li>
           <li class="nav-item">
             <a href="/admin/toko" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-store"></i>
               <p>
                 Toko
                <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-inbox"></i>
+              <p>
+                Laporan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/laporan/barang" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Barang Masuk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/laporan/stok" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stok Update</p>
+                </a>
+              </li>
+            </ul>
           </li>
          
          
@@ -163,7 +186,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item active">Dashboard</li>
 
             </ol>
 
@@ -174,6 +197,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
+    @yield('widgetpembeli')
     @yield('content')
     <!-- /.content -->
   </div>

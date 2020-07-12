@@ -46,6 +46,19 @@ class User extends Authenticatable
         return $this->hasMany('App\Pesenan','id','toko_id');
     }
 
-    
+    public function barangmasuk(){
+        return $this->hasMany('App\BarangMasuk','id','user_id');
+    }
 
+    public function barangmasuktoko(){
+        return $this->hasMany('App\BarangMasuk','id','toko_id');
+    }
+
+    public function inventoryadmin(){
+        return $this->hasMany('App\Inventory','id','created_by');
+    }
+
+    public function inventorytoko(){
+        return $this->hasMany('App\Inventory','id','toko_id');
+    }
 }

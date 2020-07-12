@@ -20,6 +20,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/admin/', 'ChartController@index')->name('admingrafik')->middleware('admin');
+Route::get('/admin/bulan', 'ChartController@filter')->name('admingrafik')->middleware('admin');
+
+Route::get('/admin/coba', 'AdminController@coba');
+
+
+
 Route::get('/profile', 'UserController@edit')->name('profile')->middleware('user');
 Route::post('/profile/update', 'UserController@update')->name('updateprofile')->middleware('user');
 
@@ -36,6 +43,14 @@ Route::get('/admin/komoditas/edit/{id}', 'AdminController@editkomoditi')->name('
 Route::post('/admin/komoditas', 'AdminController@storekomoditi')->name('insertkomoditas')->middleware('admin');
 Route::post('/admin/komoditas/edit/{id}', 'AdminController@updatekomoditi')->middleware('admin');
 Route::delete('/admin/komoditas/delete/{id}','AdminController@destroykomoditi');
+
+Route::get('/admin/stok/{id}', 'InventoryController@stok')->middleware('admin');
+Route::post('/admin/stok/{id}', 'InventoryController@storestok')->name('inputstok')->middleware('admin');
+
+Route::get('/admin/barangmasuk/{id}', 'BarangMasukController@inputbarangmasuk')->middleware('admin');
+Route::post('/admin/barangmasuk/{id}', 'BarangMasukController@storebarang')->name('inputbarangmasuk')->middleware('admin');
+Route::get('/admin/laporan/barang', 'LaporanController@laporanbarang')->middleware('admin');
+Route::get('/admin/laporan/stok', 'LaporanController@laporanstok')->middleware('admin');
 
 Route::get('/admin/pesanan', 'AdminController@indexpesanan')->name('adminpesanan')->middleware('admin');
 Route::get('/admin/pesanan/detail/{id}', 'AdminController@pesanandetail')->name('adminpesanandetail')->middleware('admin');

@@ -97,7 +97,7 @@
                         Rp. {{$komoditi->harga}}
                       </td>
                       <td>
-                        {{$komoditi->stok}} kg
+                        {{$komoditi->inventory->sum('qty_stok') + $komoditi->barangmasuk->sum('qty_barangmasuk') - $komoditi->pesanan_detail->sum('jumlah')}} kg
                       </td>
                       <td>
                       <img src="{{asset('img_komoditas/'.$komoditi->img_komoditas)}}" class="img-fluid" alt="Colorlib Template" width="100px" height="100px">
@@ -107,7 +107,9 @@
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger" type="submit">Delete</button>
-                        <a href="{{ url('/admin/komoditas/edit', $komoditi->id_komoditas)}}" class="btn btn-success"> Edit</a>
+                        <a href="{{ url('/admin/komoditas/edit', $komoditi->id_komoditas)}}" class="btn btn-primary"> Edit</a>
+                        <a href="{{ url('/admin/stok', $komoditi->id_komoditas)}}" class="btn btn-success">Update Stok</a>
+                        <a href="{{ url('/admin/barangmasuk', $komoditi->id_komoditas)}}" class="btn btn-info">Barang Masuk</a>
                       </form>
                       </td>
                     </tr>

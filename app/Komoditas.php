@@ -22,6 +22,17 @@ class Komoditas extends Model
 
     public function pesanan_detail()
     {
-    	return $this->hasMany('App\PesananDetail','id_komoditas','komoditas_id');
+    	return $this->hasMany('App\PesananDetail','komoditas_id','id_komoditas');
     }
+
+    public function barangmasuk()
+    {
+    	return $this->hasMany('App\BarangMasuk','komoditas_id','id_komoditas');
+    }
+
+    public function inventory()
+    {
+    	return $this->hasMany('App\Inventory','komoditas_id','id_komoditas');
+    }
+
 }
