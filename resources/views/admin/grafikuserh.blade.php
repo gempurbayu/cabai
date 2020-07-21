@@ -9,14 +9,16 @@
 <script src="https://code.highcharts.com/stock/modules/data.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-
-
-
-
+<script src="{{asset('chart/Chart.min.js')}}"></script>
 </head>
    
 <body>
-<form enctype="multipart/data" method="get" action="/admin/bulan" class="col-lg-3">
+<div class="container">
+        <a href="/admin/grafikuser" class="btn btn-success btn-sm">Hari</a>
+        <a href="#" class="btn btn-primary btn-sm">Bulan</a>
+        <a href="/admin/grafikuserh" class="btn btn-primary btn-sm">Tahun</a>
+</div>
+<!-- <form enctype="multipart/data" method="get" action="/admin/bulan" class="col-lg-3">
     <label for="sel1">Pilih Bulan :</label>
                   <select class="form-control" id="filter" name="month">
                     <option value="1">Januari</option>
@@ -33,29 +35,27 @@
                     <option value="12">Desember</option>
                   </select>
     <input type="submit" name="" value="submit" class="btn btn-primary btn-sm">
-  </form>
-  <canvas id="canvas" height="280" width="600" class="col-lg-4"></canvas>
+  </form> -->
+<!--   <canvas id="canvas" height="280" width="600" class="col-lg-4"></canvas> -->
 <div id="container">
 </div>
 </body>
 
 <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>
-<script type="text/javascript">
-   
-   
+<script type="text/javascript">   
     Highcharts.chart('container', {
         title: {
-            text: 'New User Growth, 2019'
+            text: 'Total User Dalam 12 Bulan Terakhir, 2020'
         },
         subtitle: {
-            text: 'Source: tutsmake.com'
+            text: ''
         },
          xAxis: {
             categories: <?php echo json_encode($label); ?>
         },
         yAxis: {
             title: {
-                text: 'Number of New Users'
+                text: 'Jumlah User Baru'
             }
         },
         legend: {
@@ -69,7 +69,7 @@
             }
         },
         series: [{
-            name: 'New Users',
+            name: 'User Baru',
             data: <?php echo json_encode($jumlah_user); ?>
         }],
         responsive: {
@@ -91,6 +91,6 @@
 
 
 
-</html> -->
+</html>
 
 @endsection

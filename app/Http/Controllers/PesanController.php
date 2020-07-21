@@ -36,10 +36,10 @@ class PesanController extends Controller
         $tanggal = Carbon::now();
 
         //validasi stok
-        if($request->jumlah_pesan > 10) {
+        //if($request->jumlah_pesan > 10) {
 
-            return redirect('komoditas/show/'.$id);
-        }
+          //  return redirect('komoditas/show/'.$id);
+        // }
 
         $cek_pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status',0)->first();
         if(empty($cek_pesanan))
@@ -124,11 +124,6 @@ class PesanController extends Controller
         $pesanan->update();
 
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();
-        foreach($pesanan_details as $pesanan_detail) {
-            $komoditas = Komoditas::where('id_komoditas', $pesanan_detail->komoditas_id)->first();
-            $komoditas->stok = $komoditas->stok-$pesanan_detail->jumlah;
-            $komoditas->update();
-        }
 
         return redirect('history');
     }

@@ -146,10 +146,6 @@
                     <input type="text" class="form-control" id="harga" name="harga" placeholder="masukkan harga">
                   </div>
                   <div class="form-group">
-                    <label for="nama">Stok</label>
-                    <input type="text" class="form-control" id="stok" name="stok" placeholder="masukkan stok">
-                  </div>
-                  <div class="form-group">
                     <label for="exampleInputFile">File input</label>
                     <div class="input-group">
                       <div class="custom-file">

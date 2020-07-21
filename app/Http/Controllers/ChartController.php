@@ -53,25 +53,13 @@ public function filter(Request $request){
         ->get()
         ->toArray();
 
-    $omsetbulan = DB::table('omsetbulan')->select(DB::raw("jumlah as countbulan"))
-        ->get()
-        ->toArray();
-
-        $tanggalbulan = DB::table('omsetbulan')->select(DB::raw("tanggal_ambil as tanggalbulan"))
-        ->get()
-        ->toArray();
-
     $omset = array_column($omset, 'count');
     $tanggal = array_column($tanggal, 'tanggal');
 
-    $omsetbulan = array_column($omset, 'count');
-    $tanggalbulan = array_column($tanggal, 'tanggalulan');
 
     return view('admin.grafik')
             ->with('omset',json_encode($omset,JSON_NUMERIC_CHECK))
-            ->with('tanggal',json_encode($tanggal,JSON_NUMERIC_CHECK))
-            ->with('omsetbulan',json_encode($omsetbulan,JSON_NUMERIC_CHECK))
-            ->with('tanggalbulan',json_encode($tanggalbulan,JSON_NUMERIC_CHECK));
+            ->with('tanggal',json_encode($tanggal,JSON_NUMERIC_CHECK));
 
 
     }
@@ -82,7 +70,7 @@ public function filter(Request $request){
         ->get()
         ->toArray();
 
-        $tanggalbulan = DB::table('omsetbulan')->select(DB::raw("tanggal_ambil as tanggalbulan"))
+        $tanggalbulan = DB::table('omsetbulan')->select(DB::raw("bulan as tanggalbulan"))
         ->get()
         ->toArray();
 

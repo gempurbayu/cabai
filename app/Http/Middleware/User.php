@@ -29,7 +29,7 @@ class User
         }
 
         if(Auth::user()->role == 2){
-            return redirect()->route('toko');
+            return redirect('/toko');
         }
 
         if(Auth::user()->role == 3 ){

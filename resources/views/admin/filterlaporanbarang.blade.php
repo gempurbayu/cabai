@@ -12,7 +12,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="form-group">
-                <form method="post" action="{{route('filterbarangtoko')}}" enctype="multipart/data">
+                <form method="post" action="{{route('filterbarangtoko')}}" enctype="">
                   @csrf
                   <label for="sel1">Pilih Toko :</label>
                   <select class="form-control" id="filter" name="toko">

@@ -27,7 +27,9 @@ Route::get('/admin/bulan', 'ChartController@filter')->name('admingrafik')->middl
 Route::get('/admin/grafikuser', 'ChartController@guser')->name('admingrafik')->middleware('admin');
 Route::get('/admin/grafikuserh', 'ChartController@guserh')->name('admingrafik')->middleware('admin');
 
-Route::get('/admin/coba', 'AdminController@coba');
+
+Route::post('/admin/pesanan/filterstok', 'LaporanController@filterstok')->name('filterstoktoko')->middleware('admin');
+Route::post('/admin/pesanan/filterbarang', 'LaporanController@filterbarang')->name('filterbarangtoko')->middleware('admin');
 
 
 

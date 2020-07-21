@@ -27,23 +27,19 @@
     				<p class="price"><span>Rp. {{$data->harga}}</span></p>
     				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
 						</p>
-				<div class="row mt-4">
-					<div class="col-md-6">
-						<div class="form-group d-flex">
-		              
-		            </div>
-						</div>
+				<div class="row">
+					<div class="col-md-8">
 						<form method="post" action="{{url('pesan')}}/{{$data->id_komoditas}}">
 							@csrf
 							<div class="w-100"></div>
-							<div class="input-group col-md-6 d-flex mb-3">
+							<div class="input-group col-md-8 d-flex mb-1">
 	             	<span class="input-group-btn mr-2">
 	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
 	            		</span>
 	            	
-	             	<input type="text" id="jumlah_pesan" name="jumlah_pesan" class="form-control input-number" value="1" min="1" max="100">
+	             	<input type="text" id="jumlah_pesan" name="jumlah_pesan" class="form-control input-number col-lg-10" value="1" min="1">
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
@@ -52,7 +48,7 @@
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
-	          		<p style="color: #000;">{{$data->stok}} kg tersedia</p>
+	          		<p style="color: #000;">{{$stok->stok_update}} kg tersedia</p>
 	          	</div>
           	</div>
           	

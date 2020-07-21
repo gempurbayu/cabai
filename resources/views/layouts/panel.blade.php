@@ -96,14 +96,28 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item ">
-            <a href="/admin/" class="nav-link">
+            <a href="/admin/" class="nav-link has-treeview">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-           
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Grafik Omset</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/grafikuser" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Grafik user</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           </li>
           <li class="nav-item">
             <a href="/admin/pembeli" class="nav-link">
