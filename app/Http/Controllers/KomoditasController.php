@@ -27,10 +27,9 @@ class KomoditasController extends Controller
 
     public function index()
     {
-        $komoditas = Komoditas::latest()->paginate(3);
+        $komoditas = Komoditas::latest()->get();
   
-        return view('users.index',compact('komoditas'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('users.index',compact('komoditas'));
     }
 
 

@@ -35,11 +35,23 @@ class LaporanController extends Controller
     {
 
     	$toko = $request->toko;
+    	$fkomoditas = $request->komoditas;
 
-    	$barangs = DB::table("v_stokupdate")->where('created', now()->month)->where('toko_id', $toko)->get();
+    	if(($toko == 999) && ($fkomoditas == 999))
+    	{
+    			$barangs = DB::table("v_stokupdate")->where('created', now()->month)->get();
+    	} else if($fkomoditas == 999) {
+    		$barangs = DB::table("v_stokupdate")->where('created', now()->month)->where('toko_id', $toko)->get();
+    	} else if($toko == 999) {
+    		$barangs = DB::table("v_stokupdate")->where('created', now()->month)->where('komoditas_id', $fkomoditas)->get();
+    	} else {
+    		$barangs = DB::table("v_stokupdate")->where('created', now()->month)->where('toko_id', $toko)->where('komoditas_id', $fkomoditas)->get();
+    	}
+
     	$users = DB::table("users")->where('role', 2)->get();
+    	$komoditas = DB::table("komoditas")->get();
   
-        return view('admin.filterlaporanstok', compact('barangs','users'));
+        return view('admin.filterlaporanstok', compact('barangs','users','komoditas'));
     }
 
     public function filterbarang(Request $request)
@@ -48,7 +60,17 @@ class LaporanController extends Controller
     	$toko = $request->toko;
     	$fkomoditas = $request->komoditas;
 
-    	$barangs = DB::table("v_barangmasuk")->where('toko_id', $toko)->get();
+    	if(($toko == 999) && ($fkomoditas == 999))
+    	{
+    		$barangs = DB::table("v_barangmasuk")->get();
+    	} else if($fkomoditas == 999) {
+    		$barangs = DB::table("v_barangmasuk")->where('toko_id', $toko)->get();
+    	} else if($toko == 999) {
+    		$barangs = DB::table("v_barangmasuk")->where('komoditas_id', $fkomoditas)->get();
+    	} else {
+    		$barangs = DB::table("v_barangmasuk")->where('toko_id', $toko)->where('komoditas_id', $fkomoditas)->get();
+    	}
+
     	$users = DB::table("users")->where('role', 2)->get();
     	$komoditas = DB::table("komoditas")->get();
   

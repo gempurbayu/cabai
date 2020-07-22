@@ -16,12 +16,14 @@
                   @csrf
                   <label for="sel1">Pilih Toko :</label>
                   <select class="form-control" id="filter" name="toko">
+                    <option value="999">semua</option>
                     @foreach($users as $toko)
                     <option value="{{$toko->id}}">{{$toko->name}}</option>
                     @endforeach
                   </select>
                   <label for="sel1">Pilih Komoditas :</label>
                   <select class="form-control" id="filter" name="komoditas">
+                    <option value="999">semua</option>
                     @foreach($komoditas as $komoditi)
                     <option value="{{$komoditi->id_komoditas}}">{{$komoditi->nama_komoditas}}</option>
                     @endforeach
