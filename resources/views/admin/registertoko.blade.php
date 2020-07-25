@@ -1,5 +1,4 @@
-@extends('layouts.front')
-
+@extends('layouts.panel')
 @section('content')
 <section class="pt60 pb60">
     <div class="container">
@@ -8,12 +7,12 @@
                 <!-- Login Card Starts-->
                 <div class="card card-signin mt20 mb20">
                     <div class="card-body">
-                        <h5 class="card-title text-center">{{ __('Register') }}</h5>
-                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    	    	<h3><b>Buat Toko Baru</b></h3>
+                        <form method="POST" action="{{ route('storetoko') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nama Toko') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -58,20 +57,8 @@
                             <label for="kecamatan" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
 
                             <div class="col-md-6">
-                                    <select class="form-control" id="filter" name="kecamatan">
-                                    <option value="1">Batam Kota</option>
-                                    <option value="2">Batu Aji</option>
-                                    <option value="3">Batu Ampar</option>
-                                    <option value="4">Belakang Padang</option>
-                                    <option value="5">Bengkong</option>
-                                    <option value="6">Bulang</option>
-                                    <option value="7">Galang</option>
-                                    <option value="8">Lubuk Baja</option>
-                                    <option value="9">Nongsa</option>
-                                    <option value="10">Sagulung</option>
-                                    <option value="11">Sei Beduk</option>
-                                    <option value="12">Sekupang</option>
-                                    </select>
+                                <input id="kecamatan" type="text" class="form-control @error('kecamatan') is-invalid @enderror" name="kecamatan" value="{{ old('kecamatan') }}" required autocomplete="kecamatan" autofocus>
+
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -159,7 +146,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Buat Toko') }}
                                 </button>
                             </div>
                         </div>
@@ -170,5 +157,9 @@
         </div>
     </div>
 </section>
+
+
+
+
 
 @endsection

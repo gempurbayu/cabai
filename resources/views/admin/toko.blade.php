@@ -2,6 +2,7 @@
 @section('content')
 <!-- Default box -->
       <div class="card card-solid">
+        <a href="/admin/toko/baru" class="btn btn-primary">Buat Toko Baru</a>
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
           	@foreach($tokos as $toko)

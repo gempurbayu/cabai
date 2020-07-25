@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'telepon' => ['required', 'string', 'max:255'],
-            'kecamatan' => ['required', 'string', 'max:255'],
+            'kecamatan' => ['required', 'integer', 'max:255'],
             'kelurahan' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],

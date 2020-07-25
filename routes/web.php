@@ -26,6 +26,8 @@ Route::get('/admin/omsettahun', 'ChartController@omsettahun')->name('omsetbulan'
 Route::get('/admin/bulan', 'ChartController@filter')->name('admingrafik')->middleware('admin');
 Route::get('/admin/grafikuser', 'ChartController@guser')->name('admingrafik')->middleware('admin');
 Route::get('/admin/grafikuserh', 'ChartController@guserh')->name('admingrafik')->middleware('admin');
+Route::get('/admin/toko/baru', 'AdminController@registertoko')->name('buattoko')->middleware('admin');
+Route::post('/admin/toko/baru', 'AdminController@storetoko')->name('storetoko')->middleware('admin');
 
 
 Route::post('/admin/pesanan/filterstok', 'LaporanController@filterstok')->name('filterstoktoko')->middleware('admin');

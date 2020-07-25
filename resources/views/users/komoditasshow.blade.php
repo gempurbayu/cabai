@@ -48,7 +48,7 @@
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
-	          		<p style="color: #000;">{{$stok->stok_update}} kg tersedia</p>
+	          		<p style="color: #000;"> kg tersedia</p>
 	          	</div>
           	</div>
           	

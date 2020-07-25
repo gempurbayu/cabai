@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Komoditas;
 use App\Inventory;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Auth;
 
 class InventoryController extends Controller
@@ -20,14 +22,22 @@ class InventoryController extends Controller
 
     public function storestok(Request $request, $id)
     {
-        $stok =  new Inventory();
+        $cek_invent = DB::table('inventory')->where('toko_id', $request->toko_id)->where('komoditas_id', $id)->whereDate('tanggal', Carbon::now())->first();
 
-        $stok->komoditas_id = $id;
-        $stok->toko_id = $request->toko_id;
-        $stok->qty_stok = $request->qty_stok;
-        $stok->created_by = Auth::user()->id;
+        if(empty($cek_invent))
+        {
+            $stok =  new Inventory();
 
-        $stok->save();
+            $stok->komoditas_id = $id;
+            $stok->toko_id = $request->toko_id;
+            $stok->qty_stok = $request->qty_stok;
+            $stok->tanggal = Carbon::now();
+            $stok->created_by = Auth::user()->id;
+
+            $stok->save();
+        } else {
+            $invents = DB::table('inventory')->where('toko_id', $request->toko_id)->where('komoditas_id', $id)->whereDate('tanggal', Carbon::now())->update(['qty_stok' => request()->qty_stok]);
+        }
 
         return redirect('/admin/komoditas');
     }
