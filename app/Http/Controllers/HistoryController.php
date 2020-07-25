@@ -9,6 +9,7 @@ use App\PesananDetail;
 use App\User;
 use Auth;
 use Alert;
+use Illuminate\Support\Facades\DB;
 
 
 class HistoryController extends Controller
@@ -29,7 +30,8 @@ class HistoryController extends Controller
     {
     	$pesanan = Pesenan::where('id', $id)->first();
     	$pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
+        $toko = DB::table('kecamatan')->where('kode_kecamatan',$pesanan->toko->kecamatan)->first();
 
-    	return view('history.detail', compact('pesanan', 'pesanan_details'));
+    	return view('history.detail', compact('pesanan', 'pesanan_details','toko'));
     }
 }

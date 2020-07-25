@@ -95,6 +95,8 @@ Route::get('history', 'HistoryController@index')->name('history')->middleware('u
 Route::get('history/{id}', 'HistoryController@detail');
 
 Route::get('/toko', 'TokoController@index')->name('toko')->middleware('toko');
+Route::get('/toko/pesanan/detail/{pid}/{id}', 'TokoController@updatedetail')->middleware('toko');
+Route::post('/toko/pesanan/detail/{pid}/{id}', 'TokoController@storeupdatedetail')->name('updatedetail')->middleware('toko');
 Route::get('/toko/{id}', 'TokoController@ambil')->name('ambil')->middleware('toko');
 
 Route::apiResource('users', 'UserController');

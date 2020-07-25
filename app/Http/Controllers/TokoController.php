@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Pesenan;
 use App\PesananDetail;
 use App\User;
+use App\Komoditas;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class TokoController extends Controller
@@ -81,6 +83,32 @@ class TokoController extends Controller
     	$pesanan = Pesenan::where('id', $id)->first();
 
     	return view('toko.successorder', compact('pesanan'));
+    }
+
+    public function updatedetail($pid, $id)
+    {
+        $pesanan_detail = DB::table('pesanan_details')->where('id', $id)->first();
+        $pesanan = DB::table('pesenans')->where('id', $pid)->first();
+
+        return view('toko.updatedetail', compact('pesanan_detail','pesanan'));
+    }
+
+    public function storeupdatedetail(Request $request, $pid, $id)
+    {
+        $pesanan_detail = PesananDetail::where('id', $id)->first();
+        $komoditas = Komoditas::where('id_komoditas', $pesanan_detail->komoditas_id)->first();
+        $pesanan_detail->jumlah = $request->jumlah;
+        $pesanan_detail->jumlah_harga = $komoditas->harga * $request->jumlah; 
+
+        $pesanan_detail->update();
+
+        $pesanan = Pesenan::where('id', $pid)->first();
+        $jumlah_pesanan = PesananDetail::where('pesanan_id', $pesanan->id)->sum('jumlah_harga');
+        $pesanan->jumlah_harga = $jumlah_pesanan;
+
+        $pesanan->update();
+
+        return redirect('toko/pesanan/detail/'. $pid);
     }
 
 }

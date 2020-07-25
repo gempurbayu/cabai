@@ -86,6 +86,7 @@
                             <th>Jumlah</th>
                             <th>Harga</th>
                             <th>Total Harga</th>
+                            <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -102,6 +103,7 @@
                             <td class="harga">Rp. {{$pesanan_detail->komoditas->harga}}</td>
                             
                             <td class="total">Rp. {{$pesanan_detail->jumlah_harga}}</td>
+                            <td><a href="{{url('toko/pesanan/detail/'. $pesanan->id . '/'. $pesanan_detail->id)}}" class="btn btn-primary btn-sm">Ubah</a></td>
                           </tr><!-- END TR-->
                           @endforeach
                         </tbody>
@@ -113,16 +115,16 @@
                     <div class="cart-total mb-3">
                       <h3>Total Belanja</h3>
                       <p class="d-flex">
-                        <span>Subtotal</span>
+                        <span>Subtotal : </span>
                         <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
                       </p>
                       <p class="d-flex">
-                        <span>Diskon</span>
+                        <span>Diskon : </span>
                         <span>Rp. 0</span>
                       </p>
                       <hr>
                       <p class="d-flex total-price">
-                        <span>Total</span>
+                        <span>Total : </span>
                         <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
                       </p>
                       @if($pesanan->status == 2)
