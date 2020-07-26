@@ -109,13 +109,15 @@
                       </td>
                       <td>
                         @if($pesanan->status == 0)
-                            <p class="badge badge-danger">Belum Checkout</p>
+                            <p class="badge badge-warning">Belum Checkout</p>
                         @elseif($pesanan->status == 1)
                             <p class="badge badge-primary">Belum Diambil</p>
                         @elseif($pesanan->status == 2)
+                            <p class="badge badge-primary">Belum Diantar</p>
+                        @elseif($pesanan->status == 3)
                             <p class="badge badge-success">Selesai</p>
                         @else
-                            <p class="badge badge-danger">Dibatalkan</p>
+                          <p class="badge badge-danger">Dibatalkan</p>
                         @endif
                       </td>
                       <td>
@@ -127,7 +129,12 @@
                           <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
                           <p> </p>
                           <a href="{{url('toko/pesanan/cancel/'.$pesanan->id)}}" class="btn btn-danger btn-sm">Batalkan</a>
-                        @else
+                        @elseif($pesanan->status == 2)
+                        <a href="{{url('toko/pesanan/success/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diantar</a>
+                          <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
+                          <p> </p>
+                          <a href="{{url('toko/pesanan/cancel/'.$pesanan->id)}}" class="btn btn-danger btn-sm">Batalkan</a>
+                          @else
                         <a href="{{url('toko/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
                         @endif
                       </td>

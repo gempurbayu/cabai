@@ -34,7 +34,7 @@ class TokoController extends Controller
     public function ambil($id)
     {
     	$pesanan = Pesenan::where('id', $id)->first();
-    	$pesanan->status = 2;
+    	$pesanan->status = 3;
     	$pesanan->update();
 
     	return redirect('toko');
@@ -54,7 +54,7 @@ class TokoController extends Controller
     	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
     	$pesanan = Pesenan::where('id', $id)->first();
     	$pesanan->keterangan =  $request->keterangan;
-    	$pesanan->status = 3;
+    	$pesanan->status = 4;
     	$pesanan->update();
 
     	return redirect('toko');
@@ -65,7 +65,7 @@ class TokoController extends Controller
     	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
     	$pesanan = Pesenan::where('id', $id)->first();
     	$pesanan->keterangan =  $request->keterangan;
-    	$pesanan->status = 2;
+    	$pesanan->status = 3;
     	$pesanan->update();
 
     	return redirect('toko');

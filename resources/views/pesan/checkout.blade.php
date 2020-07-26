@@ -86,30 +86,107 @@
     				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
     			</div>
         -->
-
+        <div class="col-lg-8 mt-5 cart-wrap ftco-animate">
+            <div class="cart-total mb-3">
+              <h3>Data Pengiriman (Abaikan jika barang akan diambil)</h3>
+              <p>Masukkan Kecamatan Pengambil dan Pengantar</p>
+              <form action="{{route('alamatantar')}}" class="info" method="post"> 
+                @csrf
+                <div class="row">
+                  <div class="form-group col-lg-6">
+                    <label for="">Kecamatan Pembeli</label>
+                    <select class="form-control" id="filter" name="kecamatanpembeli">
+                      @foreach($kecamatans as $kecamatan)
+                      <option value="{{$kecamatan->kode_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label for="country">Kecamatan Toko</label>
+                    <select class="form-control" id="filter" name="kecamatantoko">
+                      @foreach($kecamatans as $kecamatan)
+                      <option value="{{$kecamatan->kode_kecamatan}}">{{$kecamatan->nama_kecamatan}} | @foreach($toko->where('kecamatan', $kecamatan->kode_kecamatan) as $tokos){{$tokos->name}}@endforeach</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-6">
+                  <label for="country">Kelurahan</label>
+                  <input type="text" class="form-control text-left px-3" placeholder="" name="kelurahan" value="{{$pembeli->kelurahan}}">
+                  </div>
+                  <div class="form-group col-lg-6">
+                  <label for="country">No Handphone Aktif</label>
+                  <input type="text" class="form-control text-left px-3" placeholder="" name="nohp" value="{{$pembeli->telepon}}">
+                  </div>
+                  <div class="form-group col-lg-12">
+                  <label for="country">Alamat</label>
+                  <input type="textbox" class="form-control text-left px-3" placeholder="" name="alamat" value="{{$pembeli->alamat}}">
+                  </div>
+                </div>
+                <p><input type="submit" class="btn btn-primary py-3 px-4" value="Proses Alamat"></input></p>
+              </form>
+            </div>
+          </div>
     			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
     				<div class="cart-total mb-3">
-    					<h3>Cart Totals</h3>
+    					<h3>Total Keranjang</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
     						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
     					</p>
     					<p class="d-flex">
     						<span>Ongkir</span>
-    						<span>Rp. 0</span>
+    						<span> 
+                  @if(!empty($ongkir))
+                  Rp. {{number_format($ongkir->ongkir)}}
+                  @else
+                  Ambil Di Toko
+                  @endif
+                </span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
+    						<span>Rp. 
+                  @if(!empty($ongkir))
+                  {{number_format($ongkir->ongkir + $pesanan->jumlah_harga)}}
+                  @else
+                  {{number_format($pesanan->jumlah_harga)}}
+                  @endif</span>
     					</p>
-              <label>Diambil/Diantar pada :</label>
               <form action="{{route('tglcheckout')}}" method="post">
                 @csrf
+              @if(!empty($ongkir))
+              <input id="toko_id" type="text" class="form-control" name="toko" required="" placeholder="" hidden="" value="
+              {{$toko_id->id}}">
+              <p>Diantar Dari Toko : <b>{{$toko_id->name}}</b></p>
+              @else
+              <div class="form-group">
+                    <label for="country">Pilih Toko</label>
+                    <select class="form-control" id="filter" name="toko">
+                      @foreach($toko as $tokos)
+                      <option value="{{$tokos->id}}">{{$tokos->name}}</option>
+                      @endforeach
+                    </select>
+              </div>
+              @endif
+              <label>Diambil/Diantar pada :</label>
               <input id="hari" type="date" class="form-control" name="hari" required="" placeholder="masukkan hari ke-berapa diambil">
+              <input id="ongkir" type="text" class="form-control" name="ongkir" required="" placeholder="" hidden="" value="@if(!empty($ongkir))
+                  {{($ongkir->ongkir)}}
+                  @else
+                  0
+                  @endif">
               
     				</div>
+            @if(!empty($ongkir))
+            @if($ongkir->status == 99)
+            <p><b>PEMESANAN TIDAK DAPAT DIPROSES KARENA KURIR TIDAK MELAYANI ANTAR BARANG KE KECAMATAN TUJUAN</b>(Silahkan mengganti alamat dan toko tujuan yang tersedia)</p>
+            @else
     				<p><input type="submit" class="btn btn-primary py-3 px-4" value="Proses Pemesanan"></input></p>
+            @endif
+            @else
+            <p><input type="submit" class="btn btn-primary py-3 px-4" value="Proses Pemesanan"></input></p>
+            @endif
           </form>
     			</div>
     		</div>

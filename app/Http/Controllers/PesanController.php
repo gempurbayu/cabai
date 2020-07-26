@@ -8,6 +8,7 @@ use App\komoditas;
 use App\Pesenan;
 use App\PesananDetail;
 use App\User;
+use App\AlamatAntar;
 use Carbon\Carbon;
 use Alert;
 use Illuminate\Support\Facades\DB;
@@ -28,10 +29,6 @@ class PesanController extends Controller
     public function pesan(Request $request, $id){
         $komoditas = DB::table('komoditas')->where('id_komoditas',$id)->first();
         $user = User::where('id', Auth::user()->id)->first();
-        $kec = $user->kecamatan;
-
-        $toko = User::where('role', 2)->where('kecamatan', $kec)->first();
-        $tokoid = $toko->id;
 
         $tanggal = Carbon::now();
 
@@ -46,7 +43,7 @@ class PesanController extends Controller
         {
             $pesanan = new Pesenan;
             $pesanan->user_id = Auth::user()->id;
-            $pesanan->toko_id = $tokoid;
+            $pesanan->toko_id = 00;
             $pesanan->tanggal = $tanggal;
             $pesanan->status = 0;
             $pesanan->jumlah_harga = 0;
@@ -93,6 +90,17 @@ class PesanController extends Controller
     public function checkout()
     {
         $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        $kecamatans = DB::table('kecamatan')->get();
+        $toko = DB::table('users')->where('role', 2)->get();
+        $pembeli = DB::table('users')->where('id', Auth::user()->id)->first();
+        $alamatantar = DB::table('alamat_antars')->where('pesanan_id', $pesanan->id)->first();
+
+        if(!empty($alamatantar))
+        {
+        $ongkir = DB::table('v_ongkir')->where('kec_toko', $alamatantar->kec_toko)->where('kec_pembeli', $alamatantar->kec_pembeli)->first();
+
+        $toko_id = DB::table('users')->where('role', 2)->where('kecamatan', $alamatantar->kec_toko)->first();
+        }
 
         if(!empty($pesanan))
         {
@@ -100,7 +108,47 @@ class PesanController extends Controller
 
 
         }   
-        return view('pesan.checkout', compact('pesanan','pesanan_details'));
+        return view('pesan.checkout', compact('pesanan','pesanan_details','kecamatans','toko','pembeli', '$alamatantar','ongkir','toko_id'));
+    }
+
+    public function alamatantar(Request $request)
+    {
+        $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+
+        $cekalamat = AlamatAntar::where('pesanan_id', $pesanan->id)->first();
+        if(empty($cekalamat))
+        {
+            $alamat = new AlamatAntar;
+            $alamat->kec_pembeli = $request->kecamatanpembeli;
+            $alamat->kec_toko = $request->kecamatantoko;
+            $alamat->kelurahan = $request->kelurahan;
+            $alamat->alamat = $request->alamat;
+            $alamat->nohp = $request->nohp;
+            $alamat->pesanan_id = $pesanan->id;
+            $alamat->save();
+
+            $toko = DB::table('users')->where('kecamatan',$request->kecamatantoko)->where('role', 2)->first();
+            $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+            $pesanan->toko_id = $toko->id;
+            $pesanan->update();
+
+        } else {
+            $alamat = AlamatAntar::where('pesanan_id', $pesanan->id)->first();
+            $alamat->kec_pembeli = $request->kecamatanpembeli;
+            $alamat->kec_toko = $request->kecamatantoko;
+            $alamat->kelurahan = $request->kelurahan;
+            $alamat->alamat = $request->alamat;
+            $alamat->nohp = $request->nohp;
+            $alamat->pesanan_id = $pesanan->id;
+            $alamat->update();
+
+            $toko = DB::table('users')->where('kecamatan',$request->kecamatantoko)->where('role', 2)->first();
+            $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
+            $pesanan->toko_id = $toko->id;
+            $pesanan->update();
+        }
+
+        return redirect('checkout');
     }
 
     public function tglcheckout()
@@ -116,11 +164,20 @@ class PesanController extends Controller
     {
         $pesanan = Pesenan::where('user_id', Auth::user()->id)->where('status', 0)->first();
         $pesanan_id = $pesanan->id;
-        $pesanan->status = 1;
+        $antar = DB::table('alamat_antars')->where('pesanan_id', $pesanan->id)->first();
+
+        if(empty($antar))
+        {
+            $pesanan->status = 1;
+        } else {
+            $pesanan->status = 2;
+        }
         $hari = date('Y-m-d'); 
 
         $hari = $request->hari;
         $pesanan->tanggal_ambil = $hari;
+        $pesanan->toko_id = $request->toko;
+        $pesanan->ongkir = $request->ongkir;
         $pesanan->update();
 
         $pesanan_details = PesananDetail::where('pesanan_id', $pesanan_id)->get();

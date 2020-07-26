@@ -88,6 +88,7 @@ Route::get('pesan/{id}','KomoditasController@index');
 Route::post('pesan/{id}','PesanController@pesan');
 Route::get('checkout', 'PesanController@checkout')->name('checkout');
 Route::post('checkout', 'PesanController@konfirmasi')->name('tglcheckout');
+Route::post('checkout/alamat', 'PesanController@alamatantar')->name('alamatantar');
 Route::delete('checkout/{id}','PesanController@destroy');
 Route::get('checkout/konfirmasi', "PesanController@konfirmasi");
 

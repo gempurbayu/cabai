@@ -28,9 +28,11 @@
 						        
 						        <td class="status">
 						        	@if($pesanan->status == 1)
-                      Menunggu Pengambilan Barang
+                        Menunggu Pengambilan Barang
+                      @elseif($pesanan->status == 2)
+                        Pesanan Akan Diantar
                       @else
-                      Pesanan Selesai
+                        Pesanan Selesai
                       @endif
 						        </td>
 						        
