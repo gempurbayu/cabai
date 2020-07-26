@@ -29,7 +29,7 @@ class KomoditasController extends Controller
     {
         $komoditas = Komoditas::latest()->get();
   
-        return view('users.index',compact('komoditas'));
+        return view('users.index',compact('komoditas'))     ;
     }
 
 
@@ -42,9 +42,10 @@ class KomoditasController extends Controller
     public function show($id)
     {
         $data = DB::table('komoditas')->where('id_komoditas',$id)->first();
-        $toko = DB::table('users')->where('kecamatan', Auth::user()->kecamatan)->where('role', 2)->first();
-        $stok = DB::table('v_stokupdate')->where('toko_id', $toko->id)->where('komoditas_id',$id)->first();
-        return view('users.komoditasshow',compact('data','toko','stok'));
+        $toko = DB::table('users')->where('role', 2)->get();
+        $kecamatan = DB::table('kecamatan')->get();
+        $stok = DB::table('v_stokupdate')->where('komoditas_id',$id)->paginate(6);
+        return view('users.komoditasshow',compact('data','toko','stok','kecamatan'));
     }
 
     /**

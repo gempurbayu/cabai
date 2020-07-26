@@ -99,6 +99,8 @@ Route::get('/toko/pesanan/detail/{pid}/{id}', 'TokoController@updatedetail')->mi
 Route::post('/toko/pesanan/detail/{pid}/{id}', 'TokoController@storeupdatedetail')->name('updatedetail')->middleware('toko');
 Route::get('/toko/{id}', 'TokoController@ambil')->name('ambil')->middleware('toko');
 
+Route::get('/ongkir', 'OngkirController@index');
+
 Route::apiResource('users', 'UserController');
 Route::apiResource('komoditas', 'KomoditasController');
 Route::apiResource('toko', 'TokoController');

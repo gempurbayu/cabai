@@ -95,7 +95,7 @@
     						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
     					</p>
     					<p class="d-flex">
-    						<span>Diskon</span>
+    						<span>Ongkir</span>
     						<span>Rp. 0</span>
     					</p>
     					<hr>
@@ -103,7 +103,7 @@
     						<span>Total</span>
     						<span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
     					</p>
-              <label>Diambil hari ke :</label>
+              <label>Diambil/Diantar pada :</label>
               <form action="{{route('tglcheckout')}}" method="post">
                 @csrf
               <input id="hari" type="date" class="form-control" name="hari" required="" placeholder="masukkan hari ke-berapa diambil">

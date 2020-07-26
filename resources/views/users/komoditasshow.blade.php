@@ -25,13 +25,24 @@
 							</p>
 						</div>
     				<p class="price"><span>Rp. {{$data->harga}}</span></p>
-    				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
+    				<p>Daftar Stok : </p>
+    				@foreach($stok as $stoks)
+						<p>
+						@foreach($toko->where('id', $stoks->toko_id) as $tokos)
+                          {{$tokos->name}}
+                          	@foreach($kecamatan->where('kode_kecamatan', $tokos->kecamatan) as $kecamatans)
+                          		({{$kecamatans->nama_kecamatan}})
+                        	@endforeach
+                        @endforeach
+                         : <b>{{$stoks->stok_update}} Kg</b>
+                		</p>
+                		 @endforeach
 						</p>
+						{{$stok->links()}}
 				<div class="row">
 					<div class="col-md-8">
 						<form method="post" action="{{url('pesan')}}/{{$data->id_komoditas}}">
 							@csrf
-							<div class="w-100"></div>
 							<div class="input-group col-md-8 d-flex mb-1">
 	             	<span class="input-group-btn mr-2">
 	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
@@ -39,20 +50,15 @@
 	                	</button>
 	            		</span>
 	            	
-	             	<input type="text" id="jumlah_pesan" name="jumlah_pesan" class="form-control input-number col-lg-10" value="1" min="1">
+	             	<input type="text" id="jumlah_pesan" name="jumlah_pesan" class="form-control input-number col-lg-12" value="1" min="1">
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
 	                 </button>
 	             	</span>
 	          	</div>
-	          	<div class="w-100"></div>
-	          	<div class="col-md-12">
-	          		<p style="color: #000;"> kg tersedia</p>
-	          	</div>
           	</div>
-          	
-          		<button type="submit" class="btn btn-success btn-lg" style="color: green">Tambahkan ke Keranjang</button>
+          	<button type="submit" class="btn btn-success btn-lg" style="color: green">Tambahkan ke Keranjang</button>
           	</form>
     			</div>
     		</div>

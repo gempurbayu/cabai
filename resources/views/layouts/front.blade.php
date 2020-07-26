@@ -77,6 +77,7 @@
               </li> -->
               @if (Route::has('login'))
               <li class="nav-item active"><a href="{{ url('/komoditas') }}" class="nav-link">Pesan</a></li>
+              <li class="nav-item active"><a href="{{ url('/ongkir') }}" class="nav-link">Simulasi Ongkir</a></li>
               @auth
               <li class="nav-item cta cta-colored">
                 <?php
@@ -153,6 +154,7 @@
                 <li><a href="{{ url('/about') }}" class="py-2 d-block">Tentang</a></li>
                 <li><a href="{{ url('/contact') }}" class="py-2 d-block">Hubungi kami</a></li>
                 <li><a href="{{ url('/komoditas') }}" class="py-2 d-block">Pesan</a></li>
+                <li><a href="{{ url('/ongkir') }}" class="py-2 d-block">Simulasi Ongkir</a></li>
               </ul>
             </div>
           </div>
