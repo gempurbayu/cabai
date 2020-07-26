@@ -47,8 +47,12 @@
     			<div class="col-lg-8 mt-5 cart-wrap ftco-animate">
             <div class="cart-total mb-6">
               <h2>Berhasil Checkout</h2>
+              @if($pesanan->status == 1)
               <p style="font-size: 20px">Silahkan untuk ke toko pada tanggal : <b style="color: #82ae46">{{$pesanan->tanggal_ambil}}</b></p>
-              <p style="font-size: 20px">Alamat Toko : <b style="color: #82ae46">Kec. {{$toko->nama_kecamatan}}, Kel. {{$pesanan->toko->kelurahan}}, {{$pesanan->toko->alamat}}</b></p>
+              @elseif($pesanan->status == 2)
+              <p style="font-size: 20px">Pesanan akan diantarkan pada tanggal : <b style="color: #82ae46">{{$pesanan->tanggal_ambil}}</b></p>
+              @endif
+              <p style="font-size: 20px">Alamat Toko : <b style="color: #82ae46">{{$pesanan->toko->name}}, Kec. {{$toko->nama_kecamatan}}, Kel. {{$pesanan->toko->kelurahan}}, {{$pesanan->toko->alamat}}</b></p>
 
             </div>
     			</div>
@@ -60,13 +64,13 @@
                 <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
               </p>
               <p class="d-flex">
-                <span>Diskon</span>
-                <span>Rp. 0</span>
+                <span>Ongkir</span>
+                <span>Rp. {{number_format($pesanan->ongkir)}}</span>
               </p>
               <hr>
               <p class="d-flex total-price">
                 <span>Total</span>
-                <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
+                <span>Rp. {{number_format($pesanan->jumlah_harga + $pesanan->ongkir)}}</span>
               </p>
             </div>
     		</div>

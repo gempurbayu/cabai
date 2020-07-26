@@ -44,9 +44,19 @@ class TokoController extends Controller
     {
     	$pesanans = Pesenan::where('toko_id', $id)->orderBy('tanggal', 'asc')->get();
     	$pesanan = Pesenan::where('id', $id)->first();
+
+        $alamat = DB::table('alamat_antars')->where('pesanan_id', $pesanan->id)->first();
+
+        $pembeli = DB::table('users')->where('id', $pesanan->user_id)->first();
+
+        if(!empty($alamat))
+        {
+        $kecamatan = DB::table('kecamatan')->where('kode_kecamatan', $alamat->kec_pembeli)->first();
+        }
+
     	$pesanan_details = PesananDetail::where('pesanan_id', $pesanan->id)->get();
 
-    	return view('toko.detail', compact('pesanans','pesanan', 'pesanan_details'));
+    	return view('toko.detail', compact('pesanans','pesanan', 'pesanan_details','alamat','pembeli','kecamatan'));
     }
 
     public function cancelorder(Request $request, $id)

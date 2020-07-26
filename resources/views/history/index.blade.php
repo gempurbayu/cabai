@@ -12,7 +12,9 @@
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>No</th>
+                    <th>Kode Transakasi</th>
 						        <th>Tanggal Pemesanan</th>
+                    <th>Toko</th>
 						        <th>Status</th>
 						        <th>Total Harga</th>
 						        <th>Detail</th>
@@ -23,8 +25,14 @@
                   @foreach($pesanans as $pesanan)
 						      <tr class="text-center">
 						        <td class="no">{{$no++}}</td>
+
+                    <td class="kode">{{$pesanan->kode_transaksi}}</td>
 						        
 						        <td class="tanggal">{{$pesanan->tanggal}}</td>
+
+                    <td class="toko">@foreach($toko->where('id', $pesanan->toko_id) as $tokos)
+                      {{$tokos->name}}
+                    @endforeach</td>
 						        
 						        <td class="status">
 						        	@if($pesanan->status == 1)

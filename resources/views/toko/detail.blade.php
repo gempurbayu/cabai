@@ -111,6 +111,30 @@
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  @if($pesanan->status == 2)
+                  <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                      <div class="cart-total mb-3">
+                        <h3>Alamat Pengiriman</h3>
+                        <p class="d-flex">
+                          <span>Nama : {{$pembeli->name}}</span>
+                        </p>
+                        <p class="d-flex">
+                          <span>No. Hp Aktif : {{$alamat->nohp}}</span>
+                        </p>
+                        <p class="d-flex">
+                          <span>Kecamatan : {{$kecamatan->nama_kecamatan}}</span>
+                        </p>
+                        <p class="d-flex">
+                          <span>Kelurahan : {{$pembeli->kelurahan}}</span>
+                        </p>
+                        <p class="d-flex">
+                          <span>Alamat Lengkap : {{$pembeli->alamat}}</span>
+                        </p>
+                      </div>
+                  </div>
+                  @else
+                  @endif
                   <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
                       <h3>Total Belanja</h3>
@@ -119,21 +143,25 @@
                         <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
                       </p>
                       <p class="d-flex">
-                        <span>Diskon : </span>
-                        <span>Rp. 0</span>
+                        <span>Ongkir : </span>
+                        <span>Rp. {{number_format($pesanan->ongkir)}}</span>
                       </p>
                       <hr>
                       <p class="d-flex total-price">
                         <span>Total : </span>
-                        <span>Rp. {{number_format($pesanan->jumlah_harga)}}</span>
+                        <span>Rp. {{number_format($pesanan->jumlah_harga + $pesanan->ongkir)}}</span>
                       </p>
-                      @if($pesanan->status == 2)
+                      @if($pesanan->status == 3)
 
-                      @else
+                      @elseif($pesanan->status == 2)
+                      <a href="{{url('toko/pesanan/success/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diantar</a>
+                      @elseif($pesanan->status == 1)
                       <a href="{{url('toko/pesanan/success/'.$pesanan->id)}}" class="btn btn-success btn-sm">Sudah Diambil</a>
-
+                      @else
+                      <p><b>Pesanan Dibatalkan</b></p>
                       @endif
                     </div>
+                  </div>
                 </div>
               </div>
               @endif

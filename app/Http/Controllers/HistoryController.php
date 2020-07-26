@@ -21,8 +21,9 @@ class HistoryController extends Controller
 
     public function index()
     {
-    	$pesanans = Pesenan::where('user_id', Auth::user()->id)->get();
-    	return view('history.index', compact('pesanans'));
+    	$pesanans = Pesenan::where('user_id', Auth::user()->id)->orderBy('id','DESC')->get();
+        $toko = User::where('role', 2)->get();
+    	return view('history.index', compact('pesanans','toko'));
     }
 
     public function detail($id)
