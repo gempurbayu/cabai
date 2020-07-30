@@ -57,7 +57,20 @@
                             <label for="kecamatan" class="col-md-4 col-form-label text-md-right">{{ __('Kecamatan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="kecamatan" type="text" class="form-control @error('kecamatan') is-invalid @enderror" name="kecamatan" value="{{ old('kecamatan') }}" required autocomplete="kecamatan" autofocus>
+                                <select class="form-control" id="filter" name="kecamatan">
+                                    <option value="1">Batam Kota</option>
+                                    <option value="2">Batu Aji</option>
+                                    <option value="3">Batu Ampar</option>
+                                    <option value="4">Belakang Padang</option>
+                                    <option value="5">Bengkong</option>
+                                    <option value="6">Bulang</option>
+                                    <option value="7">Galang</option>
+                                    <option value="8">Lubuk Baja</option>
+                                    <option value="9">Nongsa</option>
+                                    <option value="10">Sagulung</option>
+                                    <option value="11">Sei Beduk</option>
+                                    <option value="12">Sekupang</option>
+                                 </select>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">

@@ -155,6 +155,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/admin/ongkir" class="nav-link">
+              <i class="nav-icon fas fa-truck"></i>
+              <p>
+                Ongkos Kirim
+               <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-inbox"></i>
@@ -209,7 +218,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     @yield('widgetpembeli')
     @yield('content')

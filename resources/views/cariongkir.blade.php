@@ -68,20 +68,20 @@
           <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Kecamatan Pembeli</label>
-                    <input type="number" class="form-control" name="vkecpembeli" value="{{ old('Ongkir') }}">
+                    <label for="exampleInputEmail1">Kecamatan Toko</label>
+                    <input type="text" class="form-control" name="vkecpembeli" value="{{ $kec_toko->nama_kecamatan }}" disabled="">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Kecamatan Toko</label>
-                    <input type="number" class="form-control" name="vkectoko" value="{{ old('Ongkir') }}">
+                    <label for="exampleInputEmail1">Kecamatan Pembeli</label>
+                    <input type="text" class="form-control" name="vkectoko" value="{{$kec_pembeli->nama_kecamatan }}" disabled="">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Ongkir</label>
-                    <input type="number" class="form-control" name="Ongkir" value="{{ old('Ongkir') }}">
+                    <input type="number" class="form-control" name="Ongkir" value="{{ $ongkir->ongkir }}" disabled="">
                 </div>
               </div>      
           </div>
@@ -90,7 +90,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Keterangan</label>
-                    <input type="text" class="form-control" name="keterangan" value="{{ old('keterangan') }}">
+                    <input type="text" class="form-control" name="keterangan" value="{{ $ongkir->keterangan }} disabled">
                 </div>
               </div>      
             </div>

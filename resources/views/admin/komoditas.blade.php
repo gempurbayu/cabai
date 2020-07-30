@@ -97,7 +97,7 @@
                         Rp. {{$komoditi->harga}}
                       </td>
                       <td>
-                        {{$komoditi->inventory->sum('qty_stok') + $komoditi->barangmasuk->sum('qty_barangmasuk') - $komoditi->pesanan_detail->sum('jumlah')}} kg
+                        {{$stoks->where('komoditas_id', $komoditi->id_komoditas)->sum('stok_update')}} kg
                       </td>
                       <td>
                       <img src="{{asset('img_komoditas/'.$komoditi->img_komoditas)}}" class="img-fluid" alt="Colorlib Template" width="100px" height="100px">

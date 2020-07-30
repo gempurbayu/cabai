@@ -29,6 +29,9 @@ Route::get('/admin/grafikuserh', 'ChartController@guserh')->name('admingrafik')-
 Route::get('/admin/toko/baru', 'AdminController@registertoko')->name('buattoko')->middleware('admin');
 Route::post('/admin/toko/baru', 'AdminController@storetoko')->name('storetoko')->middleware('admin');
 
+Route::get('/admin/ongkir', 'AdminController@ongkir')->name('adminongkir')->middleware('admin');
+
+
 
 Route::post('/admin/pesanan/filterstok', 'LaporanController@filterstok')->name('filterstoktoko')->middleware('admin');
 Route::post('/admin/pesanan/filterbarang', 'LaporanController@filterbarang')->name('filterbarangtoko')->middleware('admin');
@@ -101,6 +104,7 @@ Route::post('/toko/pesanan/detail/{pid}/{id}', 'TokoController@storeupdatedetail
 Route::get('/toko/{id}', 'TokoController@ambil')->name('ambil')->middleware('toko');
 
 Route::get('/ongkir', 'OngkirController@index');
+Route::post('/ongkir/cari', 'OngkirController@cariongkir');
 
 Route::apiResource('users', 'UserController');
 Route::apiResource('komoditas', 'KomoditasController');

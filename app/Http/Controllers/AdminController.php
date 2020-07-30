@@ -107,8 +107,7 @@ class AdminController extends Controller
     public function indexkomoditi()
     {
         $komoditas = Komoditas::latest()->paginate(3);
-
-        $stoks = Inventory::latest()->get();
+        $stoks = DB::table('v_stokupdate')->get();
   
         return view('admin.komoditas',compact('komoditas', 'stoks'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -278,6 +277,12 @@ class AdminController extends Controller
         return redirect('/admin/komoditas');
     }
 
+    public function ongkir()
+    {
+        $ongkirs = DB::table('ongkir')->get();
+
+        return view('admin.ongkir', compact('ongkirs'));
+    }
 
     /**
      * Show the form for creating a new resource.

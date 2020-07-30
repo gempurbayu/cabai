@@ -79,14 +79,17 @@
                 <form method="post" action="{{route('filterpesanan')}}" enctype="">
                   @csrf
                   <label for="sel1">Pilih Status Pemesanan :</label>
-                  <select class="form-control" id="filter" name="status">
-                    <option value="0">Belum Checkout</option>
-                    <option value="1">Menunggu Pengambilan</option>
-                    <option value="2">Selesai</option>
-                    <option value="3">Batal</option>
-                  </select>
-                  <p> </p>
-                    <input type="submit" name="filter" value="filter" class="btn btn-primary">
+                    <div class="input-group">
+                        <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon" id="filter" name="status">
+                        <option selected>Choose...</option>
+                        <option value="0">Belum Checkout</option>
+                        <option value="1">Menunggu Pengambilan</option>
+                        <option value="2">Selesai</option>
+                        <option value="3">Batal</option>
+                        </select>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" name="filter" value="filter">Submit</button>
+                    </div>
                 </form>
                 </div>
               </div>
@@ -141,7 +144,7 @@
                           {{$pesanan->keterangan}}
                       </td>
                       <td>
-                        <a href="{{url('admin/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Lihat Detail</a>
+                        <a href="{{url('admin/pesanan/detail/'.$pesanan->id)}}" class="btn btn-primary btn-sm">Detail</a>
                       </td>
                     </tr>
                     @endforeach
