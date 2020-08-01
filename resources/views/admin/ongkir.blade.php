@@ -8,6 +8,7 @@
         <div class="row">
           <!-- Left col -->
           <section class="col-lg-12 connectedSortable">
+            <a href="{{ url('/admin/ongkir/baru')}}" class="btn btn-success">Buat Baru</a>
             <!-- Custom tabs (Charts with tabs)-->
             <!-- /.card -->
              <div class="card-body">
@@ -32,38 +33,19 @@
                       <td>
                         {{$ongkir->keterangan}}
                       </td>
+                      <td>
+                        <form action="{{ url('/admin/ongkir/delete', $ongkir->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ url('/admin/ongkir/edit', $ongkir->id)}}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" type="submit">Hapus</button>
+                      </form></td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
-            <!-- /.card -->
-            <!-- DIRECT CHAT -->
-            
-            <!--/.direct-chat -->
-
-            <!-- TO DO List -->
-            
-            <!-- /.card -->
           </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <!-- <section class="col-lg-5 connectedSortable"> -->
-
-            <!-- Map card -->
-            
-            <!-- /.card -->
-
-            <!-- solid sales graph -->
-            
-            <!-- /.card -->
-
-            <!-- Calendar -->
-
-            <!-- /.card -->
-         <!-- </section> -->
-          <!-- right col -->
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->

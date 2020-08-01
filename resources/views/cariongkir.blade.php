@@ -2,17 +2,6 @@
 
 @section('content')
 
-<div class="hero-wrap hero-bread" style="background-image: url({{ asset ('front/images/bg_1.jpg')}});">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-            <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home</a></span> <span>Tentang Kami</span></p>
-            <h1 class="mb-0 bread">Tentang Kami</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
       <div class="container">
         <div class="row">

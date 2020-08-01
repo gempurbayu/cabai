@@ -30,6 +30,11 @@ Route::get('/admin/toko/baru', 'AdminController@registertoko')->name('buattoko')
 Route::post('/admin/toko/baru', 'AdminController@storetoko')->name('storetoko')->middleware('admin');
 
 Route::get('/admin/ongkir', 'AdminController@ongkir')->name('adminongkir')->middleware('admin');
+Route::get('/admin/ongkir/edit/{id}', 'AdminController@editongkir')->name('admineditongkir')->middleware('admin');
+Route::post('/admin/ongkir/edit/{id}', 'AdminController@updateongkir')->name('adminupdateongkir')->middleware('admin');
+Route::delete('/admin/ongkir/delete/{id}','AdminController@destroyongkir');
+Route::get('/admin/ongkir/baru', 'AdminController@buatongkir')->name('adminbuatongkir')->middleware('admin');
+Route::post('/admin/ongkir/baru/', 'AdminController@storeongkir')->name('adminstoreongkir')->middleware('admin');
 
 
 

@@ -284,6 +284,47 @@ class AdminController extends Controller
         return view('admin.ongkir', compact('ongkirs'));
     }
 
+    public function buatongkir()
+    {
+        return view('admin.buatongkir');
+    }
+
+    public function storeongkir(Request $request)
+    {
+        DB::table('ongkir')->insert([
+            'status' => $request->status,
+             'ongkir' => $request->ongkir,
+             'keterangan' => $request->keterangan
+        ]);
+
+        return redirect('admin/ongkir');
+    }
+
+    public function editongkir($id)
+    {
+
+        $ongkirs = DB::table('ongkir')->where('id', $id)->first();
+
+        return view('admin.editongkir', compact('ongkirs'));
+    }
+
+    public function updateongkir(Request $request, $id)
+    {
+
+         DB::table('ongkir')->where('id', $id)->update([
+            'status' => $request->status,
+            'ongkir' => $request->ongkir,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('admin/ongkir');
+    }
+
+    public function destroyongkir($id)
+    {
+        $ongkir = DB::table('ongkir')->where('id', $id)->delete();
+        return redirect('admin/ongkir');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
