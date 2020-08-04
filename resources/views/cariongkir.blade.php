@@ -79,7 +79,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Keterangan</label>
-                    <input type="text" class="form-control" name="keterangan" value="{{ $ongkir->keterangan }} disabled">
+                    <input type="text" class="form-control" name="keterangan" value="{{ $ongkir->keterangan }}" disabled="">
                 </div>
               </div>      
             </div>

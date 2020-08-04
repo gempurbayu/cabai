@@ -31,7 +31,6 @@
                     <div class="form-group">
                       <label for="exampleInputEmail1">kecamatan Toko</label>
                       <select class="kecamatan1 form-control" name="kecamatan1">
-                        <option selected="" disabled="">Pilih kecamatan</option>
                         @foreach($kecamatan as $kec)
                         <option value="{{$kec->kode_kecamatan}}">{{$kec->nama_kecamatan}}</option>
                         @endforeach
@@ -42,7 +41,6 @@
                     <div class="form-group">
                       <label for="exampleInputEmail1">kecamatan Pembeli</label>
                       <select class="kecamatan2 form-control" name="kecamatan2">
-                        <option selected="" disabled="">Pilih kecamatan</option>
                         @foreach($kecamatan as $kec)
                         <option value="{{$kec->kode_kecamatan}}">{{$kec->nama_kecamatan}}</option>
                         @endforeach

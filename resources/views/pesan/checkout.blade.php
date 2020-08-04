@@ -104,8 +104,8 @@
                   <div class="form-group col-lg-6">
                     <label for="country">Kecamatan Toko</label>
                     <select class="form-control" id="filter" name="kecamatantoko">
-                      @foreach($kecamatans as $kecamatan)
-                      <option value="{{$kecamatan->kode_kecamatan}}">{{$kecamatan->nama_kecamatan}} | @foreach($toko->where('kecamatan', $kecamatan->kode_kecamatan) as $tokos){{$tokos->name}}@endforeach</option>
+                      @foreach($toko as $tokos)
+                      <option value="{{$tokos->kecamatan}}">{{$tokos->name}} | @foreach($kecamatans->where('kode_kecamatan', $tokos->kecamatan) as $kecamatan){{$kecamatan->nama_kecamatan}}@endforeach</option>
                       @endforeach
                     </select>
                   </div>
