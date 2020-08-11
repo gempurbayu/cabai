@@ -82,6 +82,42 @@ class AdminController extends Controller
             'status_id' => $status,
         ]);
 
+        $komoditas = DB::table("komoditas")->get();
+        $toko = DB::table("users")->where('email', $request->email)->first();
+        foreach($komoditas as $komoditi)
+        {
+            $pesanan = new Pesenan();
+            $pesanan->user_id = 1;
+            $pesanan->toko_id = $toko->id;
+            $pesanan->tanggal = Carbon::now();
+            $pesanan->status = 2;
+            $pesanan->jumlah_harga = 0;
+            $pesanan->tanggal_ambil = Carbon::now();
+            $pesanan->kode_transaksi = 1199;
+            $pesanan->ongkir = 0;
+
+            $pesanan->save();
+
+            $inventory = new Inventory();
+            $inventory->komoditas_id = $komoditi->id_komoditas;
+            $inventory->toko_id = $toko->id;
+            $inventory->qty_stok = 0;
+            $inventory->created_by = Auth::user()->id;
+            $inventory->tanggal = Carbon::now();
+
+            $inventory->save();
+
+            $barangmasuk = new BarangMasuk();
+            $barangmasuk->komoditas_id = $komoditi->id_komoditas;
+            $barangmasuk->qty_barangmasuk = 0;
+            $barangmasuk->tgl_masuk = Carbon::now();
+            $barangmasuk->user_id = Auth::user()->id;
+            $barangmasuk->toko_id = $toko->id;
+
+            $barangmasuk->save();
+        }
+
+
 
         return redirect('admin/toko');
 

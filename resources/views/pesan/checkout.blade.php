@@ -47,6 +47,8 @@
 					  </div>
     			</div>
     		</div>
+        <br>
+          <p><input type="submit" class="btn btn-primary py-3 px-4" onclick="showhide()" value="Kirim Barang"></input></p>
     		
         <div class="row justify-content-end">
           <!-- coupon
@@ -86,7 +88,7 @@
     				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
     			</div>
         -->
-        <div class="col-lg-8 mt-5 cart-wrap ftco-animate">
+        <div class="col-lg-8 mt-5 cart-wrap ftco-animate" id="kirim" style="display: none">
             <div class="cart-total mb-3">
               <h3>Data Pengiriman (Abaikan jika barang akan diambil)</h3>
               <p>Masukkan Kecamatan Pengambil dan Pengantar</p>
@@ -212,4 +214,15 @@
         </div>
       </div>
     </section>
+
+<script>
+  function showhide() {
+  var x = document.getElementById("kirim");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
    @endsection
